@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-ivory text-charcoal;
+  }
+
+  /* Arabic-specific styling */
+  [lang="ar"] {
+    @apply font-amiri;
+    letter-spacing: 0.01em;
+  }
+
+  /* English-specific styling */
+  [lang="en"] {
+    @apply font-crimson;
+    letter-spacing: 0.02em;
+  }
+
+  /* Selection styling */
+  ::selection {
+    @apply bg-gold-light text-charcoal;
+  }
+
+  ::-moz-selection {
+    @apply bg-gold-light text-charcoal;
+  }
+}
+
+@layer components {
+  /* Smooth page transitions */
+  .page-transition {
+    @apply transition-opacity duration-500 ease-in-out;
+  }
+
+  /* Reading container */
+  .reading-container {
+    @apply max-w-3xl mx-auto px-6 py-16;
+  }
+
+  /* Spiritual spacing */
+  .spiritual-spacing {
+    @apply my-12;
+  }
+}
+
+@layer utilities {
+  /* RTL-aware utilities */
+  .start-0 {
+    inset-inline-start: 0;
+  }
+
+  .end-0 {
+    inset-inline-end: 0;
+  }
+
+  /* Text shadow for spiritual glow */
+  .text-glow-gold {
+    text-shadow: 0 0 20px rgba(197, 160, 89, 0.3);
+  }
+
+  .text-glow-emerald {
+    text-shadow: 0 0 20px rgba(5, 150, 105, 0.3);
+  }
+
+  /* Backdrop blur for elevated elements */
+  .spiritual-glass {
+    @apply bg-ivory/80 backdrop-blur-md;
+  }
+}
