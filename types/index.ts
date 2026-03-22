@@ -1,9 +1,9 @@
 import { Timestamp } from "firebase/firestore";
 
 /**
- * Article pillar types
+ * Article category types
  */
-export type Pillar = "body" | "self" | "intellect" | "spirit";
+export type Category = "quran" | "human" | "divine" | "behavior";
 
 /**
  * Article status
@@ -57,7 +57,7 @@ export interface Article {
   content_en: TiptapContent | null;
 
   // Article metadata
-  pillar: Pillar;
+  category: Category;
   status: ArticleStatus;
   featured: boolean;
 
@@ -71,6 +71,9 @@ export interface Article {
 
   // Author info
   author: string;
+
+  // Cover image URL
+  coverImage?: string | null;
 
   // SEO
   seo_meta_ar: SEOMeta;
@@ -90,7 +93,7 @@ export interface ArticleWithFallback extends Article {
  */
 export interface ArticleQueryOptions {
   lang?: "ar" | "en";
-  pillar?: Pillar;
+  category?: Category;
   status?: ArticleStatus;
   featured?: boolean;
   limit?: number;
@@ -103,8 +106,8 @@ export interface SiteMetadata {
   telegram_link: string;
   hero_quote_ar: string;
   hero_quote_en: string;
-  pillars: {
-    [key in Pillar]: {
+  categories: {
+    [key in Category]: {
       name_ar: string;
       name_en: string;
       description_ar: string;

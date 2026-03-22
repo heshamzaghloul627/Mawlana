@@ -3,76 +3,287 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --scrollbar-track: transparent;
+    --scrollbar-thumb: #cbd5e1;
+  }
+
+  .dark {
+    --scrollbar-track: #111621;
+    --scrollbar-thumb: #1754cf;
+  }
+
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-ivory text-charcoal;
+    @apply bg-background-light dark:bg-background-dark text-slate-800 dark:text-gray-100 transition-colors duration-300;
   }
 
-  /* Arabic-specific styling */
-  [lang="ar"] {
-    @apply font-amiri;
-    letter-spacing: 0.01em;
-  }
-
-  /* English-specific styling */
-  [lang="en"] {
-    @apply font-crimson;
-    letter-spacing: 0.02em;
-  }
-
-  /* Selection styling */
   ::selection {
-    @apply bg-gold-light text-charcoal;
+    @apply bg-primary/20 text-primary;
   }
 
   ::-moz-selection {
-    @apply bg-gold-light text-charcoal;
+    @apply bg-primary/20 text-primary;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb);
+    border-radius: 20px;
   }
 }
 
 @layer components {
-  /* Smooth page transitions */
-  .page-transition {
-    @apply transition-opacity duration-500 ease-in-out;
+  /* Subtle texture pattern */
+  .bg-texture {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }
 
-  /* Reading container */
-  .reading-container {
-    @apply max-w-3xl mx-auto px-6 py-16;
+  /* Islamic dot pattern */
+  .islamic-pattern {
+    background-color: transparent;
+    background-image: radial-gradient(#1754cf 0.5px, transparent 0.5px),
+      radial-gradient(#1754cf 0.5px, #f6f6f8 0.5px);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+    opacity: 0.03;
   }
 
-  /* Spiritual spacing */
-  .spiritual-spacing {
-    @apply my-12;
+  /* Warm Islamic dot pattern variant */
+  .islamic-pattern-warm {
+    background-color: transparent;
+    background-image: radial-gradient(#a68557 0.5px, transparent 0.5px),
+      radial-gradient(#a68557 0.5px, #faf6f1 0.5px);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+    opacity: 0.04;
+  }
+
+  /* Arabic text justify */
+  .text-justify-arabic {
+    text-align: justify;
+    text-justify: inter-word;
+  }
+
+  /* Drop cap for first paragraph */
+  .drop-cap::first-letter {
+    float: right;
+    font-size: 3.5rem;
+    line-height: 0.8;
+    padding-left: 0.5rem;
+    font-family: var(--font-amiri), serif;
+    @apply text-primary;
+  }
+
+  /* ==============================
+     Tiptap Spiritual Reading Styles
+     ============================== */
+
+  .tiptap-spiritual .ProseMirror {
+    @apply outline-none;
+  }
+
+  .tiptap-spiritual .ProseMirror:focus {
+    @apply outline-none;
+  }
+
+  .tiptap-spiritual h1 {
+    @apply text-3xl font-bold text-primary dark:text-accent-gold mb-8 mt-12;
+  }
+
+  .tiptap-spiritual h2 {
+    @apply text-2xl font-bold text-primary dark:text-accent-gold mb-6 mt-10;
+  }
+
+  .tiptap-spiritual h3 {
+    @apply text-xl font-bold text-slate-900 dark:text-gray-100 mb-4 mt-8;
+  }
+
+  .tiptap-spiritual p {
+    @apply text-lg leading-loose text-slate-700 dark:text-gray-300 mb-6;
+  }
+
+  .tiptap-spiritual blockquote {
+    @apply my-8 py-4 rounded-lg bg-accent-gold/5;
+    border-inline-start-width: 4px;
+    border-inline-start-style: solid;
+    border-inline-start-color: #d4af37;
+    padding-inline-start: 1.5rem;
+  }
+
+  .tiptap-spiritual blockquote p {
+    @apply text-lg leading-loose mb-2 text-primary dark:text-accent-gold;
+  }
+
+  .tiptap-spiritual blockquote p:last-child:not(:only-child) {
+    @apply text-sm mb-0 text-slate-500 dark:text-gray-400;
+  }
+
+  .tiptap-spiritual strong {
+    @apply font-bold text-primary dark:text-accent-gold;
+  }
+
+  .tiptap-spiritual em {
+    @apply italic;
+  }
+
+  .tiptap-spiritual u {
+    text-decoration: underline;
+    text-decoration-color: rgba(212, 175, 55, 0.5);
+    text-underline-offset: 4px;
+  }
+
+  .tiptap-spiritual ul {
+    @apply mb-8;
+    padding-inline-start: 2rem;
+    list-style-type: disc;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tiptap-spiritual ul li {
+    @apply text-lg leading-relaxed;
+  }
+
+  .tiptap-spiritual ul li p {
+    @apply text-lg mb-0;
+  }
+
+  .tiptap-spiritual ul li::marker {
+    color: #1754cf;
+  }
+
+  .tiptap-ltr {
+    @apply font-crimson;
+  }
+
+  .tiptap-spiritual .ProseMirror > h1:first-child {
+    @apply hidden;
+  }
+
+  /* ==============================
+     Quran Verse Custom Node
+     ============================== */
+
+  .tiptap-spiritual .quran-verse {
+    @apply my-10 py-6 px-8 rounded-2xl text-center relative overflow-hidden;
+    background: #f6f6f8;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 0 30px -5px rgba(212, 175, 55, 0.15);
+  }
+
+  .tiptap-spiritual .quran-verse-text {
+    @apply text-2xl leading-loose font-bold relative;
+    font-family: var(--font-amiri), serif;
+    line-height: 2.2;
+    color: #1e293b;
+  }
+
+  .tiptap-spiritual .quran-verse-text::before {
+    content: "\FD3F ";
+    color: #d4af37;
+    font-weight: normal;
+  }
+
+  .tiptap-spiritual .quran-verse-text::after {
+    content: " \FD3E";
+    color: #d4af37;
+    font-weight: normal;
+  }
+
+  .tiptap-spiritual .quran-verse::after {
+    content: "[" attr(data-surah) ": " attr(data-ayah) "]";
+    @apply block text-sm mt-3 font-medium tracking-wide;
+    color: #d4af37;
+  }
+
+  .tiptap-spiritual .quran-verse[data-surah=""]::after {
+    display: none;
+  }
+
+  .tiptap-spiritual .quran-verse-text p {
+    @apply mb-0 text-2xl;
+    color: inherit;
+  }
+
+  /* ==============================
+     Poetry Block Custom Node
+     ============================== */
+
+  .tiptap-spiritual .poetry-block {
+    @apply my-10 py-6;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.25rem 3rem;
+    text-align: center;
+    border-top: 1px solid rgba(212, 175, 55, 0.3);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+  }
+
+  .tiptap-spiritual .poetry-line {
+    @apply text-xl leading-loose py-1 text-slate-800 dark:text-gray-200;
+    font-style: italic;
+  }
+
+  .tiptap-spiritual .poetry-line p {
+    @apply mb-0 text-xl;
+    color: inherit;
+    font-style: inherit;
+  }
+
+  @media (max-width: 640px) {
+    .tiptap-spiritual .poetry-block {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
+
+    .tiptap-spiritual .poetry-line:nth-child(even) {
+      @apply mb-4;
+    }
+
+    .tiptap-spiritual .poetry-line:nth-child(even)::after {
+      content: "* * *";
+      @apply block text-xs mt-2;
+      color: rgba(212, 175, 55, 0.4);
+    }
+
+    .tiptap-spiritual .poetry-line:last-child::after {
+      display: none;
+    }
   }
 }
 
-@layer utilities {
-  /* RTL-aware utilities */
-  .start-0 {
-    inset-inline-start: 0;
-  }
+/* Dark mode overrides for elements with hardcoded colors */
+.dark .tiptap-spiritual .quran-verse {
+  background: #1a202e;
+  border-color: rgba(212, 175, 55, 0.3);
+}
 
-  .end-0 {
-    inset-inline-end: 0;
-  }
+.dark .tiptap-spiritual .quran-verse-text {
+  color: #e2e8f0;
+}
 
-  /* Text shadow for spiritual glow */
-  .text-glow-gold {
-    text-shadow: 0 0 20px rgba(197, 160, 89, 0.3);
-  }
+.dark .tiptap-spiritual ul li::marker {
+  color: #d4af37;
+}
 
-  .text-glow-emerald {
-    text-shadow: 0 0 20px rgba(5, 150, 105, 0.3);
-  }
+.dark .drop-cap::first-letter {
+  color: #d4af37;
+}
 
-  /* Backdrop blur for elevated elements */
-  .spiritual-glass {
-    @apply bg-ivory/80 backdrop-blur-md;
-  }
+.dark .islamic-pattern {
+  background-image: radial-gradient(#1754cf 0.5px, transparent 0.5px),
+    radial-gradient(#1754cf 0.5px, #111621 0.5px);
 }

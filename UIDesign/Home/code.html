@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+
+<html class="dark" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Return | عودة</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1754cf",
+                        "primary-dark": "#0f3a9a",
+                        "accent-gold": "#d4af37",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111621",
+                        "emerald-dark": "#064e3b", // Deep emerald for specific sections overrides
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "Amiri", "serif"],
+                        "amiri": ["Amiri", "serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<!-- Google Fonts for Arabic & Latin -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400;600&amp;family=Reem+Kufi:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111621; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1754cf; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4af37; 
+        }
+
+        /* Subtle Pattern Overlay for texture */
+        .bg-texture {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        /* Custom Typography overrides for Arabic */
+        .font-kufi {
+            font-family: 'Reem Kufi', sans-serif;
+        }
+        .font-amiri {
+            font-family: 'Amiri', serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-gray-100 font-display transition-colors duration-300">
+<!-- Navbar -->
+<nav class="fixed w-full z-50 top-0 start-0 border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-background-dark/90 backdrop-blur-md">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between h-20 items-center">
+<!-- Logo -->
+<div class="flex-shrink-0 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-emerald-800 flex items-center justify-center text-white shadow-lg shadow-primary/20">
+<span class="material-icons text-xl">mosque</span>
+</div>
+<span class="text-2xl font-kufi font-bold text-gray-900 dark:text-white tracking-wide">
+                        عودة
+                    </span>
+</div>
+<!-- Navigation Links (Desktop) -->
+<div class="hidden md:flex space-x-8 space-x-reverse items-center">
+<a class="text-primary font-medium px-3 py-2 text-lg font-amiri transition-colors" href="#">الرئيسية</a>
+<a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-accent-gold px-3 py-2 text-lg font-amiri transition-colors" href="#">مراتب النفس</a>
+<a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-accent-gold px-3 py-2 text-lg font-amiri transition-colors" href="#">المقالات</a>
+<a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-accent-gold px-3 py-2 text-lg font-amiri transition-colors" href="#">عن الموقع</a>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-4">
+<button class="text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-white transition-colors">
+<span class="font-display font-semibold text-sm">EN</span>
+</button>
+<button class="bg-primary/10 dark:bg-accent-gold/10 text-primary dark:text-accent-gold border border-primary/20 dark:border-accent-gold/20 px-4 py-2 rounded-full font-amiri text-lg hover:bg-primary hover:text-white dark:hover:bg-accent-gold dark:hover:text-background-dark transition-all duration-300">
+                        تسجيل دخول
+                    </button>
+</div>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative w-full h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
+<!-- Background Image with Overlay -->
+<div class="absolute inset-0 z-0">
+<img alt="Sunlight streaming through intricate Islamic geometric archway" class="w-full h-full object-cover opacity-60 dark:opacity-40" data-alt="Sunlight streaming through intricate Islamic geometric archway" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5z4sDgU58XonPpBxM0ywhcq0jU9pREZPRzJQeDFcTKgnc_q6C8piVGwSWm3TDzSXOF2rZ-ToPn7Ypsum8qcoNs7QHqvTDzTmaWEFvqX1CTWe1nPCjlqUyKNmTRcJGaNMqk_7bcZNO1J7ppz-OCH98RE_xbwN-GHCrWkiptsdi6Z48GCbrKBfdWA1X_hzkwEArDbdT0JmK1qgrvRdRX95p4d_8bzrvn72hMrioGtiK3a5vt4NA8AwRqJuEIGmq6e_qTIgOuAAxTg8"/>
+<div class="absolute inset-0 bg-gradient-to-b from-transparent via-background-light/80 to-background-light dark:via-background-dark/80 dark:to-background-dark"></div>
+<!-- Additional mystic gradient -->
+<div class="absolute inset-0 bg-gradient-to-r from-emerald-900/30 to-primary/20 mix-blend-overlay"></div>
+</div>
+<!-- Content -->
+<div class="relative z-10 text-center px-4 max-w-4xl mx-auto mt-16">
+<div class="mb-6 inline-block">
+<span class="py-1 px-4 rounded-full border border-accent-gold/40 text-accent-gold bg-background-dark/50 backdrop-blur-sm text-sm font-amiri tracking-wider">
+                    بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
+                </span>
+</div>
+<h1 class="text-5xl md:text-7xl font-kufi font-bold text-gray-900 dark:text-white mb-6 leading-tight drop-shadow-xl">
+                عودة
+                <span class="block text-3xl md:text-5xl font-amiri font-normal mt-4 text-primary dark:text-accent-gold opacity-90">
+                    رحلة النفس إلى نور الله
+                </span>
+</h1>
+<p class="text-xl md:text-2xl font-amiri text-gray-700 dark:text-gray-300 mb-10 leading-relaxed max-w-2xl mx-auto">
+                استكشف أعماق ذاتك من خلال بصيرة القرآن الكريم. مساحة للتأمل، والارتقاء الروحي، وفهم النفس البشرية.
+            </p>
+<div class="flex flex-col sm:flex-row justify-center gap-4">
+<a class="px-8 py-3 rounded-full bg-primary hover:bg-primary-dark text-white text-lg font-amiri shadow-lg shadow-primary/30 transition-all transform hover:-translate-y-1" href="#featured">
+                    ابدأ الرحلة
+                </a>
+<a class="px-8 py-3 rounded-full bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-gray-50 dark:hover:bg-white/10 text-gray-900 dark:text-white text-lg font-amiri backdrop-blur-sm transition-all transform hover:-translate-y-1" href="#levels">
+                    مراتب النفس
+                </a>
+</div>
+</div>
+<!-- Decorative Arch Element at bottom -->
+<div class="absolute bottom-0 w-full overflow-hidden leading-[0]">
+<svg class="relative block w-full h-[60px] md:h-[100px]" data-name="Layer 1" preserveaspectratio="none" viewbox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
+<path class="fill-background-light dark:fill-background-dark" d="M600,112.77C268.63,112.77,0,65.52,0,7.23V120H1200V7.23C1200,65.52,931.37,112.77,600,112.77Z"></path>
+</svg>
+</div>
+</header>
+<!-- Featured Article Section -->
+<section class="py-20 relative bg-texture" id="featured">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="bg-white dark:bg-[#1a202e] rounded-2xl overflow-hidden shadow-2xl border border-gray-100 dark:border-gray-800 flex flex-col lg:flex-row">
+<!-- Image Side -->
+<div class="lg:w-1/2 relative min-h-[300px] lg:min-h-[500px]">
+<img alt="Abstract mystical landscape with sand dunes and starry sky representing the soul's journey" class="absolute inset-0 w-full h-full object-cover" data-alt="Abstract mystical landscape with sand dunes and starry sky representing the soul's journey" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRDtmWrX70Jt5WCWGmYgRiYQSB8C2L0gV76cH8LjDflt47WgVLX7OwKtk9xW1YgO10IGUrKbzUmlnmiAEUr7UX2LfFjOxe5mJRjsHAeGC6DNbpd1owMrO62N3lMcTS4jRPppSeT1HVgcBvuUp5AJgOw7PsokewNNq1WZglz1j5M45zc8TsUdwPUSNGtbhWbMfyCTTo-Gj75NJt7O6o20IEpqe-hOkxaMF8k_3Ug-r_jOSq5xCh9-vKraKWoJ8B-3gmkE1hPt-9BsE"/>
+<div class="absolute inset-0 bg-primary/20 mix-blend-multiply"></div>
+<div class="absolute top-6 right-6">
+<span class="bg-accent-gold text-background-dark text-sm font-bold px-3 py-1 rounded-full font-display">مقال مميز</span>
+</div>
+</div>
+<!-- Content Side -->
+<div class="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center relative">
+<!-- Ornamental background accent -->
+<div class="absolute top-0 right-0 w-32 h-32 opacity-5 pointer-events-none">
+<svg class="text-accent-gold w-full h-full" fill="currentColor" viewbox="0 0 100 100">
+<path d="M50 0L61 39L100 50L61 61L50 100L39 61L0 50L39 39L50 0Z"></path>
+</svg>
+</div>
+<h2 class="text-3xl md:text-4xl font-kufi font-bold text-gray-900 dark:text-white mb-6 leading-relaxed">
+                        النفس: بين علم النفس المادي.. <br/>
+<span class="text-primary dark:text-accent-gold">والحقيقة القرآنية</span>
+</h2>
+<p class="text-lg text-gray-600 dark:text-gray-300 mb-8 font-amiri leading-loose">
+                        في عالم يغرق في الماديات، ننسى غالباً أن جوهر الإنسان ليس جسده الفاني، بل روحه الباقية. يناقش هذا المقال الفرق الجوهري بين نظرة علم النفس الحديث المحدودة ونظرة القرآن الشمولية للنفس البشرية وأطوارها.
+                    </p>
+<div class="flex items-center gap-6 mt-auto">
+<a class="group inline-flex items-center gap-2 text-primary dark:text-accent-gold font-bold font-amiri text-xl hover:gap-4 transition-all" href="#">
+<span>اقرأ المقال كاملاً</span>
+<span class="material-icons text-lg group-hover:rotate-180 transition-transform">arrow_right_alt</span>
+</a>
+<div class="h-px flex-grow bg-gray-200 dark:bg-gray-700"></div>
+<span class="text-sm text-gray-400 font-display">١٢ دقيقة قراءة</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Seven Levels of the Soul (Stepper) -->
+<section class="py-24 bg-gray-50 dark:bg-[#0d1119] relative overflow-hidden" id="levels">
+<!-- Background Pattern -->
+<div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]" style="background-image: radial-gradient(#d4af37 1px, transparent 1px); background-size: 32px 32px;"></div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+<div class="text-center mb-16">
+<span class="text-primary dark:text-accent-gold font-amiri text-xl mb-2 block">رحلة الصعود</span>
+<h2 class="text-4xl font-kufi font-bold text-gray-900 dark:text-white">مراتب النفس السبع</h2>
+<div class="w-24 h-1 bg-gradient-to-r from-transparent via-accent-gold to-transparent mx-auto mt-4"></div>
+</div>
+<!-- Vertical Stepper for Mobile / Horizontal for Desktop -->
+<div class="relative">
+<!-- Connecting Line (Desktop) -->
+<div class="hidden lg:block absolute top-1/2 left-0 w-full h-1 bg-gray-200 dark:bg-gray-800 -translate-y-1/2 z-0 rounded-full">
+<div class="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-primary via-accent-gold to-transparent opacity-50"></div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-7 gap-6">
+<!-- Step 1 -->
+<div class="relative group">
+<div class="bg-white dark:bg-background-dark p-6 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-lg hover:border-primary/50 transition-all z-10 relative h-full flex flex-col items-center text-center">
+<div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 group-hover:bg-red-900/20 group-hover:text-red-500 flex items-center justify-center mb-4 transition-colors">
+<span class="font-bold text-lg">١</span>
+</div>
+<h3 class="text-lg font-bold font-amiri mb-2 text-gray-900 dark:text-gray-100">النفس الأمارة</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400 font-display">تأمر بالسوء وتتبع الشهوات.</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="relative group">
+<div class="bg-white dark:bg-background-dark p-6 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-lg hover:border-primary/50 transition-all z-10 relative h-full flex flex-col items-center text-center">
+<div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 group-hover:bg-orange-900/20 group-hover:text-orange-500 flex items-center justify-center mb-4 transition-colors">
+<span class="font-bold text-lg">٢</span>
+</div>
+<h3 class="text-lg font-bold font-amiri mb-2 text-gray-900 dark:text-gray-100">النفس اللوامة</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400 font-display">تلوم صاحبها على التقصير.</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="relative group">
+<div class="bg-white dark:bg-background-dark p-6 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-lg hover:border-primary/50 transition-all z-10 relative h-full flex flex-col items-center text-center">
+<div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 group-hover:bg-yellow-900/20 group-hover:text-yellow-500 flex items-center justify-center mb-4 transition-colors">
+<span class="font-bold text-lg">٣</span>
+</div>
+<h3 class="text-lg font-bold font-amiri mb-2 text-gray-900 dark:text-gray-100">النفس الملهمة</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400 font-display">أُلهمت فجورها وتقواها.</p>
+</div>
+</div>
+<!-- Step 4 (Center - Highlighted) -->
+<div class="relative group lg:-mt-6">
+<div class="bg-primary dark:bg-primary/20 p-6 rounded-xl border border-primary shadow-xl hover:shadow-2xl transition-all z-20 relative h-full flex flex-col items-center text-center ring-4 ring-primary/10">
+<div class="w-14 h-14 rounded-full bg-white text-primary flex items-center justify-center mb-4">
+<span class="font-bold text-xl">٤</span>
+</div>
+<h3 class="text-xl font-bold font-amiri mb-2 text-white">النفس المطمئنة</h3>
+<p class="text-sm text-white/80 font-display">سكنت إلى الله ورضيت به.</p>
+</div>
+</div>
+<!-- Step 5 -->
+<div class="relative group">
+<div class="bg-white dark:bg-background-dark p-6 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-lg hover:border-primary/50 transition-all z-10 relative h-full flex flex-col items-center text-center">
+<div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 group-hover:bg-emerald-900/20 group-hover:text-emerald-500 flex items-center justify-center mb-4 transition-colors">
+<span class="font-bold text-lg">٥</span>
+</div>
+<h3 class="text-lg font-bold font-amiri mb-2 text-gray-900 dark:text-gray-100">الراضية</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400 font-display">رضيت عن الله وعن قدره.</p>
+</div>
+</div>
+<!-- Step 6 -->
+<div class="relative group">
+<div class="bg-white dark:bg-background-dark p-6 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-lg hover:border-primary/50 transition-all z-10 relative h-full flex flex-col items-center text-center">
+<div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 group-hover:bg-blue-900/20 group-hover:text-blue-500 flex items-center justify-center mb-4 transition-colors">
+<span class="font-bold text-lg">٦</span>
+</div>
+<h3 class="text-lg font-bold font-amiri mb-2 text-gray-900 dark:text-gray-100">المرضية</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400 font-display">رضي الله عنها وأرضاها.</p>
+</div>
+</div>
+<!-- Step 7 -->
+<div class="relative group">
+<div class="bg-white dark:bg-background-dark p-6 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-lg hover:border-accent-gold/50 transition-all z-10 relative h-full flex flex-col items-center text-center">
+<div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 group-hover:bg-accent-gold/20 group-hover:text-accent-gold flex items-center justify-center mb-4 transition-colors">
+<span class="font-bold text-lg">٧</span>
+</div>
+<h3 class="text-lg font-bold font-amiri mb-2 text-gray-900 dark:text-gray-100">الكاملة</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400 font-display">أعلى مراتب الصفاء والنور.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Spiritual Quote Section -->
+<section class="py-28 relative flex items-center justify-center bg-primary-dark overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img alt="Deep blue night sky full of stars representing the universe" class="w-full h-full object-cover opacity-30" data-alt="Deep blue night sky full of stars representing the universe" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJ7rAreI5vjvS933qb3gPrjcKEfzfDSdnqH_mpaPemtVe1DfpMLLy1EZDW8touflWq-6bhFCEx90lXA-tNCCzPTHaHRL0VwtoGqEjvZ9aGeqmPHbFtC2OW0Rl5LEP93x_mcCrAkYe_huSvJz7WE7hR7L8MEAt0tsxWZzDEsFcGr6Lju2BXUgvsWTyhu3IC55_87Xw6x5MqQKlJmXesIQ6juABJ7vdIX083mCwcO7wnBrzo4Xj5_g8u-5Bv2yTK2sR480S5ExrKX6w"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-background-dark"></div>
+</div>
+<div class="relative z-10 text-center px-4 max-w-4xl">
+<span class="material-icons text-4xl text-accent-gold/50 mb-6">format_quote</span>
+<h2 class="text-4xl md:text-6xl font-amiri leading-loose text-white drop-shadow-[0_0_15px_rgba(212,175,55,0.5)]">
+                اللَّهُ نُورُ السَّمَاوَاتِ وَالْأَرْضِ
+            </h2>
+<p class="mt-8 text-xl text-gray-300 font-display tracking-widest uppercase opacity-70">
+                سورة النور : ٣٥
+            </p>
+</div>
+</section>
+<!-- Latest Insights (Grid) -->
+<section class="py-24 bg-background-light dark:bg-background-dark">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-end mb-12">
+<div>
+<h2 class="text-3xl font-kufi font-bold text-gray-900 dark:text-white">جديد التأملات</h2>
+<p class="mt-2 text-gray-600 dark:text-gray-400 font-amiri text-lg">مقالات مختارة لإنارة العقل والقلب</p>
+</div>
+<a class="hidden md:flex items-center gap-2 text-primary dark:text-accent-gold font-bold hover:underline" href="#">
+<span>عرض الكل</span>
+<span class="material-icons text-sm">arrow_back</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Card 1 -->
+<article class="group bg-white dark:bg-[#151b26] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border border-gray-100 dark:border-gray-800 flex flex-col h-full">
+<div class="relative h-64 overflow-hidden">
+<img alt="Looking up at a spiraling ancient staircase representing ascension" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" data-alt="Looking up at a spiraling ancient staircase representing ascension" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDahujq0msuOMq0MKEdzRHXGmdiD1Y_57PQsx26OGGX3iZBOo6KD9njkzqugMLFuYAlPsa79wyjBHgjRLMbBHiausufT8FJ43gjknfM7pDPAaXwpWEr_DbNLZiqFdRl7ebWzf1p0oac3-EsMaTJpvTCn8s5ptvz-nSjbNH5Z4neaK3RvCblZQk5W4Y5rti9rYkh_69tmCdeB0U7bdiAQM1c0Aj5-EAAoNvxTUgA1zSki-va63I5ji3IdhqQ3uhLud4RCffuIC7c5Q"/>
+<div class="absolute top-4 right-4 bg-background-dark/80 backdrop-blur-md text-white text-xs px-3 py-1 rounded-full border border-white/10">
+                            روحانيات
+                        </div>
+</div>
+<div class="p-6 flex-grow flex flex-col">
+<h3 class="text-2xl font-amiri font-bold text-gray-900 dark:text-gray-100 mb-3 group-hover:text-primary dark:group-hover:text-accent-gold transition-colors">
+                            معراج الروح: رحلة الصعود
+                        </h3>
+<p class="text-gray-600 dark:text-gray-400 font-display text-sm leading-relaxed mb-4 flex-grow">
+                            كيف يمكن للإنسان أن يعرج بروحه وهو ثابت في مكانه؟ تأملات في الصلاة كمعراج للمؤمن.
+                        </p>
+<div class="flex items-center justify-between mt-auto border-t border-gray-100 dark:border-gray-700 pt-4">
+<span class="text-xs text-gray-400 flex items-center gap-1">
+<span class="material-icons text-sm">schedule</span> ٢٠ أكتوبر ٢٠٢٣
+                            </span>
+<span class="text-primary dark:text-accent-gold text-sm font-bold">اقرأ المزيد</span>
+</div>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="group bg-white dark:bg-[#151b26] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border border-gray-100 dark:border-gray-800 flex flex-col h-full">
+<div class="relative h-64 overflow-hidden">
+<img alt="Mist rolling over a dark calm ocean representing Fana" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" data-alt="Mist rolling over a dark calm ocean representing Fana" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIz6lG0vbuRo8LAq5EgublAWcwPal_9A6iqvQnZcM40LEWthJPBcSP1m5AjWpE5NpPed-BakwY97Ykch021aPvlyJOup3yB6cP203l7Wvb_29TZoDEXYM6MwFClxFil0UU1ki5I6Y31N-2A63nxDki0gzWrimg995pnrS2LdEdhSGgBOa4yWWp0kTFspSu41hVv9I0D3ZCWn8U0XWo-U6f033uA7Xmo2EMg3bz8-mhfhxemlYLXkb6UcBZH_WNq_R93mK15iO8mxU"/>
+<div class="absolute top-4 right-4 bg-background-dark/80 backdrop-blur-md text-white text-xs px-3 py-1 rounded-full border border-white/10">
+                            تصوف
+                        </div>
+</div>
+<div class="p-6 flex-grow flex flex-col">
+<h3 class="text-2xl font-amiri font-bold text-gray-900 dark:text-gray-100 mb-3 group-hover:text-primary dark:group-hover:text-accent-gold transition-colors">
+                            بين الفناء والبقاء
+                        </h3>
+<p class="text-gray-600 dark:text-gray-400 font-display text-sm leading-relaxed mb-4 flex-grow">
+                            مفاهيم صوفية عميقة تشرح كيف يتلاشى "الأنا" ليبقى نور الحق في قلب العبد.
+                        </p>
+<div class="flex items-center justify-between mt-auto border-t border-gray-100 dark:border-gray-700 pt-4">
+<span class="text-xs text-gray-400 flex items-center gap-1">
+<span class="material-icons text-sm">schedule</span> ١٥ أكتوبر ٢٠٢٣
+                            </span>
+<span class="text-primary dark:text-accent-gold text-sm font-bold">اقرأ المزيد</span>
+</div>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="group bg-white dark:bg-[#151b26] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border border-gray-100 dark:border-gray-800 flex flex-col h-full">
+<div class="relative h-64 overflow-hidden">
+<img alt="Light entering a dark ancient room symbolizing the body as a temple" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" data-alt="Light entering a dark ancient room symbolizing the body as a temple" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEAT-nUnaJOXcvSSdZE5n61guv98wimofEAI6_Zkj_F6BCEO37YIMEc4EH_d-QMezo5pXZB36SFegSnv_qvlSEATCnkwbC3aU2RC2suzL0V9IU63X1MDT8x3hhxHpLnds_Zvvu-B4mOqwpWIqCCViNzOqF8bXAYgFa67Zt9IpwBWMbrnQgiN2jFA4zT_99HU4K-p0hhuWfMlZtWtHWUJKAggM8LiwLnmm66dT7gTKPZwgDo6GK4KnLjbFNZNuIJjF4BtOYgcU-ffo"/>
+<div class="absolute top-4 right-4 bg-background-dark/80 backdrop-blur-md text-white text-xs px-3 py-1 rounded-full border border-white/10">
+                            تزكية
+                        </div>
+</div>
+<div class="p-6 flex-grow flex flex-col">
+<h3 class="text-2xl font-amiri font-bold text-gray-900 dark:text-gray-100 mb-3 group-hover:text-primary dark:group-hover:text-accent-gold transition-colors">
+                            أنت تسكن في محراب
+                        </h3>
+<p class="text-gray-600 dark:text-gray-400 font-display text-sm leading-relaxed mb-4 flex-grow">
+                            الجسد هو المعبد، والقلب هو المحراب. كيف تحافظ على طهارة بيتك الداخلي؟
+                        </p>
+<div class="flex items-center justify-between mt-auto border-t border-gray-100 dark:border-gray-700 pt-4">
+<span class="text-xs text-gray-400 flex items-center gap-1">
+<span class="material-icons text-sm">schedule</span> ٠٥ أكتوبر ٢٠٢٣
+                            </span>
+<span class="text-primary dark:text-accent-gold text-sm font-bold">اقرأ المزيد</span>
+</div>
+</div>
+</article>
+</div>
+<div class="mt-8 text-center md:hidden">
+<a class="inline-flex items-center gap-2 text-primary dark:text-accent-gold font-bold border border-primary/20 dark:border-accent-gold/20 px-6 py-3 rounded-full" href="#">
+<span>عرض كل المقالات</span>
+</a>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-white dark:bg-[#0b0e14] border-t border-gray-200 dark:border-gray-800 pt-16 pb-8 text-center">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex flex-col items-center mb-10">
+<div class="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-emerald-900 flex items-center justify-center text-white mb-4 shadow-lg shadow-primary/20">
+<span class="material-icons text-3xl">mosque</span>
+</div>
+<h3 class="text-3xl font-kufi font-bold text-gray-900 dark:text-white mb-2">عودة</h3>
+<p class="text-gray-500 dark:text-gray-400 font-amiri text-lg max-w-lg">
+                    مساحة إلكترونية تهدف لإحياء القلوب وإنارة العقول بنور الوحي والتزكية.
+                </p>
+</div>
+<div class="flex flex-wrap justify-center gap-8 mb-12">
+<a class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-accent-gold transition-colors font-medium" href="#">عن الموقع</a>
+<a class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-accent-gold transition-colors font-medium" href="#">سياسة الخصوصية</a>
+<a class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-accent-gold transition-colors font-medium" href="#">تواصل معنا</a>
+<a class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-accent-gold transition-colors font-medium" href="#">دعم المشروع</a>
+</div>
+<div class="flex justify-center gap-6 mb-12">
+<a class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white dark:hover:bg-accent-gold dark:hover:text-background-dark transition-all" href="#">
+<!-- Twitter icon placeholder style -->
+<svg fill="currentColor" height="20" viewbox="0 0 24 24" width="20"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path></svg>
+</a>
+<a class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white dark:hover:bg-accent-gold dark:hover:text-background-dark transition-all" href="#">
+<!-- Instagram icon placeholder style -->
+<svg fill="currentColor" height="20" viewbox="0 0 24 24" width="20"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.85-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
+</a>
+<a class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white dark:hover:bg-accent-gold dark:hover:text-background-dark transition-all" href="#">
+<span class="material-icons text-xl">email</span>
+</a>
+</div>
+<div class="border-t border-gray-100 dark:border-gray-800 pt-8">
+<p class="text-sm text-gray-400 dark:text-gray-500 font-display">
+                    © ٢٠٢٣ عودة. جميع الحقوق محفوظة.
+                </p>
+<p class="text-xs text-gray-300 dark:text-gray-600 mt-2 font-display">
+                    صمم بحب وسلام.
+                </p>
+</div>
+</div>
+</footer>
+</body></html>

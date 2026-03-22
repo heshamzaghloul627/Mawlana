@@ -1,6 +1,7 @@
 import { initializeApp, getApps, FirebaseApp } from "firebase/app";
 import { getFirestore, Firestore } from "firebase/firestore";
 import { getAuth, Auth } from "firebase/auth";
+import { getFunctions, Functions } from "firebase/functions";
 
 // Firebase configuration from environment variables
 const firebaseConfig = {
@@ -16,15 +17,18 @@ const firebaseConfig = {
 let app: FirebaseApp;
 let db: Firestore;
 let auth: Auth;
+let functions: Functions;
 
 if (!getApps().length) {
   app = initializeApp(firebaseConfig);
   db = getFirestore(app);
   auth = getAuth(app);
+  functions = getFunctions(app, "us-east1");
 } else {
   app = getApps()[0];
   db = getFirestore(app);
   auth = getAuth(app);
+  functions = getFunctions(app, "us-east1");
 }
 
-export { app, db, auth };
+export { app, db, auth, functions };

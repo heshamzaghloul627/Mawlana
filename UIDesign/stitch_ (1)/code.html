@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+
+<html class="light" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Noto+Serif:wght@300;400;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-fixed": "#e0e2ec",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#775a19",
+                        "surface-variant": "#e4e2de",
+                        "on-surface-variant": "#4e4639",
+                        "surface-container-low": "#f5f3ef",
+                        "secondary-container": "#e0e2ec",
+                        "on-primary-fixed-variant": "#5d4201",
+                        "background": "#fbf9f5",
+                        "primary": "#775a19",
+                        "primary-fixed": "#ffdea5",
+                        "outline": "#7f7667",
+                        "tertiary-fixed-dim": "#d5c5a8",
+                        "secondary-fixed-dim": "#c4c6d0",
+                        "tertiary": "#695d46",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-container": "#62646d",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#b3a489",
+                        "tertiary-fixed": "#f2e0c3",
+                        "on-secondary-fixed": "#191c22",
+                        "on-tertiary-fixed-variant": "#504530",
+                        "surface-container-highest": "#e4e2de",
+                        "primary-fixed-dim": "#e9c176",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed": "#231a08",
+                        "on-tertiary-container": "#443a25",
+                        "error": "#ba1a1a",
+                        "surface-container-high": "#eae8e4",
+                        "on-surface": "#1b1c1a",
+                        "surface": "#fbf9f5",
+                        "primary-container": "#c5a059",
+                        "on-primary-fixed": "#261900",
+                        "on-background": "#1b1c1a",
+                        "secondary": "#5c5e66",
+                        "inverse-on-surface": "#f2f0ed",
+                        "on-primary-container": "#4e3700",
+                        "outline-variant": "#d1c5b4",
+                        "surface-dim": "#dbdad6",
+                        "on-secondary-fixed-variant": "#44474e",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#fbf9f5",
+                        "inverse-surface": "#30312e",
+                        "inverse-primary": "#e9c176",
+                        "surface-container": "#efeeea"
+                    },
+                    fontFamily: {
+                        "amiri": ["Amiri", "serif"],
+                        "headline": ["Newsreader", "serif"],
+                        "body": ["Noto Serif", "serif"],
+                        "label": ["Noto Serif", "serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .noor-glow {
+            background: radial-gradient(circle at center, rgba(197, 160, 89, 0.08) 0%, transparent 70%);
+        }
+        .manuscript-border {
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            position: relative;
+        }
+        .manuscript-border::before {
+            content: '';
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            bottom: 4px;
+            left: 4px;
+            border: 1px solid rgba(197, 160, 89, 0.1);
+            pointer-events: none;
+        }
+        body {
+            background-color: #fbf9f5;
+        }
+        .category-section:nth-child(even) {
+            background-color: #ffffff;
+        }
+        .category-section:nth-child(odd) {
+            background-color: #fbf9f5;
+        }
+        .card-image-overlay {
+            background: linear-gradient(to top, rgba(251, 249, 245, 1) 0%, rgba(251, 249, 245, 0) 100%);
+        }
+    </style>
+</head>
+<body class="font-amiri selection:bg-primary-container/30">
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 w-full z-50 flex flex-row-reverse justify-between items-center px-12 py-6 max-w-full bg-[#FDFBF7]/80 backdrop-blur-xl transition-opacity duration-300">
+<div class="flex items-center gap-12 flex-row-reverse">
+<a class="text-3xl font-bold text-[#1C1F26] font-amiri tracking-tight" href="#">عودة</a>
+<nav class="hidden md:flex flex-row-reverse gap-8 items-center">
+<a class="text-[#C5A059] border-b-2 border-[#C5A059] pb-1 text-lg leading-relaxed" href="#">الرئيسية</a>
+<a class="text-[#1C1F26] hover:text-[#C5A059] transition-colors duration-500 text-lg leading-relaxed" href="#">عن مولانا</a>
+<!-- Mega Menu Dropdown -->
+<div class="group relative py-2">
+<button class="flex items-center gap-1 text-[#1C1F26] hover:text-[#C5A059] transition-colors duration-500 text-lg leading-relaxed">
+<span>العلوم الإلهية</span>
+<span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+<div class="invisible group-hover:visible opacity-0 group-hover:opacity-100 absolute top-full right-0 w-[600px] bg-surface-container-lowest border border-outline-variant/20 shadow-xl transition-all duration-500 p-8 grid grid-cols-2 gap-x-12 gap-y-4">
+<a class="flex items-center gap-3 p-3 hover:bg-surface-container-low transition-colors border-r-2 border-transparent hover:border-primary" href="#how-to-start">
+<span class="material-symbols-outlined text-primary">stars</span>
+<span class="text-on-surface">كيف أبدأ</span>
+</a>
+<a class="flex items-center gap-3 p-3 hover:bg-surface-container-low transition-colors border-r-2 border-transparent hover:border-primary" href="#valleys">
+<span class="material-symbols-outlined text-primary">terrain</span>
+<span class="text-on-surface">الأودية السبعة</span>
+</a>
+<a class="flex items-center gap-3 p-3 hover:bg-surface-container-low transition-colors border-r-2 border-transparent hover:border-primary" href="#stations">
+<span class="material-symbols-outlined text-primary">auto_stories</span>
+<span class="text-on-surface">مقامات الرحلة</span>
+</a>
+<a class="flex items-center gap-3 p-3 hover:bg-surface-container-low transition-colors border-r-2 border-transparent hover:border-primary" href="#spirits">
+<span class="material-symbols-outlined text-primary">perm_identity</span>
+<span class="text-on-surface">الأرواح ثلاثة</span>
+</a>
+<a class="flex items-center gap-3 p-3 hover:bg-surface-container-low transition-colors border-r-2 border-transparent hover:border-primary" href="#quran">
+<span class="material-symbols-outlined text-primary">menu_book</span>
+<span class="text-on-surface">علوم القرآن</span>
+</a>
+<a class="flex items-center gap-3 p-3 hover:bg-surface-container-low transition-colors border-r-2 border-transparent hover:border-primary" href="#sunnah">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+<span class="text-on-surface">السنة الصحيحة</span>
+</a>
+<a class="flex items-center gap-3 p-3 hover:bg-surface-container-low transition-colors border-r-2 border-transparent hover:border-primary" href="#infallibility">
+<span class="material-symbols-outlined text-primary">security</span>
+<span class="text-on-surface">عصمة الأنبياء</span>
+</a>
+<a class="flex items-center gap-3 p-3 hover:bg-surface-container-low transition-colors border-r-2 border-transparent hover:border-primary" href="#conduct">
+<span class="material-symbols-outlined text-primary">directions_walk</span>
+<span class="text-on-surface">السير والسلوك</span>
+</a>
+<a class="flex items-center gap-3 p-3 hover:bg-surface-container-low transition-colors border-r-2 border-transparent hover:border-primary" href="#rituals">
+<span class="material-symbols-outlined text-primary">mosque</span>
+<span class="text-on-surface">المناسك</span>
+</a>
+<a class="flex items-center gap-3 p-3 hover:bg-surface-container-low transition-colors border-r-2 border-transparent hover:border-primary" href="#truths">
+<span class="material-symbols-outlined text-primary">visibility</span>
+<span class="text-on-surface">حقائق</span>
+</a>
+</div>
+</div>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<button class="material-symbols-outlined text-[#1C1F26] hover:text-[#C5A059] transition-colors">search</button>
+<button class="bg-primary text-on-primary px-8 py-2.5 text-lg font-medium hover:bg-primary/90 transition-all">ابدأ الرحلة</button>
+</div>
+<div class="absolute bottom-0 right-0 w-full h-px bg-gradient-to-l from-[#C5A059]/10 via-[#C5A059]/30 to-[#C5A059]/10"></div>
+</header>
+<main class="pt-24 min-h-screen">
+<!-- Hero Section -->
+<section class="relative h-[80vh] flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 noor-glow opacity-60"></div>
+<div class="relative z-10 text-center max-w-4xl px-6">
+<span class="text-primary tracking-[0.5em] text-sm uppercase mb-8 block font-label">بسم الله الرحمن الرحيم</span>
+<h1 class="text-[8rem] md:text-[10rem] font-bold text-[#1C1F26] leading-none mb-4 animate-fade-in">عودة</h1>
+<p class="text-2xl md:text-3xl text-on-surface-variant font-amiri leading-relaxed mb-12 max-w-2xl mx-auto">
+                    رحلة الروح من ظلمات الحيرة إلى أنوار اليقين، في رحاب المعارف الذوقية والعلوم الإلهية.
+                </p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-8">
+<a class="group flex items-center gap-4 text-xl text-primary font-bold" href="#how-to-start">
+<span class="border-b-2 border-primary pb-1 group-hover:gap-6 transition-all">ابدأ الرحلة الآن</span>
+<span class="material-symbols-outlined group-hover:translate-x-[-8px] transition-transform">arrow_back</span>
+</a>
+</div>
+</div>
+<div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-40">
+<span class="text-xs tracking-widest font-label rotate-90 mb-4 uppercase">استمر</span>
+<div class="w-px h-16 bg-gradient-to-b from-primary to-transparent"></div>
+</div>
+</section>
+<!-- 1. كيف أبدأ (How to Start) -->
+<section class="category-section py-32 px-12 border-t border-outline-variant/10" id="how-to-start">
+<div class="max-w-7xl mx-auto">
+<div class="flex items-end justify-between mb-16">
+<div class="space-y-4">
+<h2 class="text-5xl font-bold text-[#1C1F26]">كيف أبدأ</h2>
+<div class="w-16 h-1 bg-primary"></div>
+</div>
+<a class="text-primary hover:underline font-bold" href="#">كل إرشادات البداية</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div class="manuscript-border group bg-surface-container-lowest overflow-hidden">
+<div class="h-64 overflow-hidden relative">
+<img alt="اليقين" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3yy_JoqZ34xyRBm_0-NQ9YUQEo4tYG-Su8Bu2PmT50NNEjgq1Bbft28QJqL53-9gM67hky7jUYOuKqxx1xG5hpZYVORIMQz7gj8NTUHJlVijJQJ_KTZRTcPY1951s_T7xnPeavfOUHbiiCE5dmKxSFQ_SWmkLBHO5i7-7nmvhH6VUkz08-wlZBEf4lXDXn-djn5LjDFx1eh8dDrhr3lEe9OZCPLkYoB62EhV2Meknsw4--xbMArwEJ0LCzA8U2tJA0cBwHAxxjN14"/>
+<div class="absolute inset-0 card-image-overlay"></div>
+</div>
+<div class="p-10 -mt-20 relative z-10">
+<span class="text-xs text-primary font-bold mb-4 block">الدرس الأول</span>
+<h3 class="text-3xl font-bold mb-4">أول خطوة في طريق اليقين</h3>
+<p class="text-on-surface-variant leading-relaxed mb-6">دليل شامل للمبتدئين حول كيفية تهيئة القلب لاستقبال أنوار المعرفة الإلهية.</p>
+<a class="text-primary font-bold flex items-center gap-2" href="#">واصل القراءة <span class="material-symbols-outlined text-sm">east</span></a>
+</div>
+</div>
+<div class="manuscript-border group bg-surface-container-lowest overflow-hidden">
+<div class="h-64 overflow-hidden relative">
+<img alt="آداب طالب العلم" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzsXqpz1WvcOAmq_VOPOuOGNgzfgVq3f4HujtOLeDwtaixJvKPGDClH9XOUL7NcIvLf-F2Zo4EW_YuyFoovFn4M5hbfMCfZQHJyqVGo9IqgB9222UPWCEQtZ3IFQBe_Ijeqzp4BQmDvW1ZjLOmXo0bz3ujVa1H74Z9SmmAMwxsUgtYWCx9jiOcuWU0Ek6JraASfxTM-7Lc4uZdIsBdiQTAYz2na7PIIVYKP7tcmVsiKgyIEBl10WxqkvL2v-Lgi6TNgGT4DNGQc7kO"/>
+<div class="absolute inset-0 card-image-overlay"></div>
+</div>
+<div class="p-10 -mt-20 relative z-10">
+<span class="text-xs text-primary font-bold mb-4 block">الدرس الثاني</span>
+<h3 class="text-3xl font-bold mb-4">آداب طالب العلم</h3>
+<p class="text-on-surface-variant leading-relaxed mb-6">الفرق بين العلم النظري والتحقق العملي، وأهمية التواضع في رحاب الحقيقة.</p>
+<a class="text-primary font-bold flex items-center gap-2" href="#">واصل القراءة <span class="material-symbols-outlined text-sm">east</span></a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 2. الأودية السبعة (The 7 Valleys) -->
+<section class="category-section py-32 px-12" id="valleys">
+<div class="max-w-7xl mx-auto">
+<div class="flex items-end justify-between mb-16">
+<div class="space-y-4">
+<h2 class="text-5xl font-bold text-[#1C1F26]">الأودية السبعة</h2>
+<div class="w-16 h-1 bg-primary"></div>
+</div>
+<a class="text-primary hover:underline font-bold" href="#">رحلة المخطوط الكاملة</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<article class="group border border-outline-variant/20 hover:border-primary/40 transition-all bg-surface-container-lowest overflow-hidden">
+<div class="h-48 relative overflow-hidden">
+<img alt="وادي الطلب" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDd1aTh4cbhkDFyRo5ROplJ3MdtrxNiFU0Ac9TzgJ_OuGjNyYUPM7ITKdZXMBdvqq3kjjMvvl5b5x1EhHYywFxi0wCNfJd4Rilk-4xtP9BRh7FuGQVLUunG5owIqtkOVAapPk9GZAnhkW8J-fBJuDgH4CIKp5okoHhJ9KitIFwiDAHacoKgKbMKt-FLy6NfcZ91LckPkib1WBm1DepopY7XmRMWRDWQd0NyBJbRZsZCNuWOr6MwIDaXwo-7xDBgJitZYdfL6eGucEJd"/>
+</div>
+<div class="p-8">
+<h4 class="text-2xl font-bold mb-4">وادي الطلب</h4>
+<p class="text-on-surface-variant mb-6">شرح الشوق الأول والبحث عن المعنى في متاهات الوجود.</p>
+<div class="text-sm opacity-60">تاريخ النشر: رمضان ١٤٤٥ هـ</div>
+</div>
+</article>
+<article class="group border border-outline-variant/20 hover:border-primary/40 transition-all bg-surface-container-lowest overflow-hidden">
+<div class="h-48 relative overflow-hidden">
+<img alt="وادي العشق" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDk34MtQ7gzPJzPaP2uKBJb5lMSWkwwoFvKgX6qKKx4NfwWlwhBV-Rsfob_-tzVa_ruqvN4ruF0zJoEfeYaGE7UEvfimXRnqK5ZU19t-D1AHY3daJ6Lv-kgzEsXlAuqMfsW7OQKPdcbEtpcvrVrd-s1qXXFrnQCNmdDiJEjMbWIjHHH5Cw980sTY1B-cabpuNjUMv1n4PlAUJGtZsoBs402qYoQK1z0_9b4lyB3N__ny8tRlHTbfNz6bW0GpgqCoWT2jYhn-yxZVe7t"/>
+</div>
+<div class="p-8">
+<h4 class="text-2xl font-bold mb-4">وادي العشق</h4>
+<p class="text-on-surface-variant mb-6">عندما يغدو المحب هائماً، وكيف يطهر الحب القلب من الأغيار.</p>
+<div class="text-sm opacity-60">تاريخ النشر: شوال ١٤٤٥ هـ</div>
+</div>
+</article>
+<article class="group border border-outline-variant/20 hover:border-primary/40 transition-all bg-surface-container-lowest overflow-hidden">
+<div class="h-48 relative overflow-hidden">
+<img alt="وادي المعرفة" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiAopSdrhPV6nXUytHR65mEsNkbYYSLFwpIYDvHWiklHqNGXHtYSpmM3gyab5EVNI4yIVkR2VDYfHSnI3wIckui2vNTtPkq-qP3G2MTDayNvM4IpzL3AtMK0nmfiHxcTfmXJxqFdMgMLqjDG5AIeargVA5uhCXVfVsO4taF6LuxYWUDFLmtaj8c0o6ogxcAlbHeLaaO9IeCJ0T8T3i1DZojbBIQRVX7x4O0Q6WP2CjlhC2At_Pv-cisAKEs-NgmtiMxN2SgKhJPTRi"/>
+</div>
+<div class="p-8">
+<h4 class="text-2xl font-bold mb-4">وادي المعرفة</h4>
+<p class="text-on-surface-variant mb-6">بداية انكشاف الحجب ورؤية الأشياء بحقائقها الإلهية.</p>
+<div class="text-sm opacity-60">تاريخ النشر: ذو القعدة ١٤٤٥ هـ</div>
+</div>
+</article>
+</div>
+</div>
+</section>
+<!-- 3. مقامات الرحلة (Stations) -->
+<section class="category-section py-32 px-12" id="stations">
+<div class="max-w-7xl mx-auto">
+<div class="flex items-end justify-between mb-16">
+<div class="space-y-4">
+<h2 class="text-5xl font-bold text-[#1C1F26]">مقامات الرحلة</h2>
+<div class="w-16 h-1 bg-primary"></div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+<div class="flex flex-col sm:flex-row gap-8 group cursor-pointer manuscript-border p-6 hover:bg-surface-container-low transition-colors">
+<div class="relative flex-shrink-0 w-full sm:w-48 h-48 overflow-hidden">
+<img alt="مقام التوبة" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqSKOrIG2gjm32l32uW8dQtXSd_MXikoLBTP-QT3_UtVBxVOuQI1sfRqGdwPm69e0yXUnPY4Q8lgrW2bfQUUhNTsEEHS1_V80ojBxupzYXxWdYgvA4Xv5vo1XuXsI3xT5zmpcLencrtGIAlvi1oE2JR2byEJqyf-ApsM1M7hQych-1EAQNi-dCFxflfg8ndxMjigQf_K7ymWmf_Fo3zOszs3rqfs63e-xxCdKfGHWkTDrvm6CLOFNrZ5fYf4WekDaLCjMN12scz0RJ"/>
+<div class="absolute inset-0 flex items-center justify-center bg-black/40 text-white font-headline text-5xl">٠١</div>
+</div>
+<div class="flex flex-col justify-center">
+<h3 class="text-2xl font-bold mb-2">مقام التوبة النصوح</h3>
+<p class="text-on-surface-variant mb-4">لماذا تعتبر التوبة أساس كل بناء روحي؟ وكيف نجدد العهد مع الله يومياً.</p>
+<span class="text-primary font-bold">اقرأ المزيد</span>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row gap-8 group cursor-pointer manuscript-border p-6 hover:bg-surface-container-low transition-colors">
+<div class="relative flex-shrink-0 w-full sm:w-48 h-48 overflow-hidden">
+<img alt="مقام الورع" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCixH8bdMTKL4jLQbe91LziZ3MbFMgu7HidRu1se8HgXwhj2pYOwSMuTkLAx58Q3zVs6mcvFRM4oB4G23i6miBp4jA7U-k39Geh2zwntjP7kbizS--LgSgwoXvymiI2o4LbWmGYqGwrBNTsyBa7kJ0qd9Xncjovqy-Dn569f__W-mdI6eUW0iyvD_kgBcA-cekHIwRLU8nC5T0kIVl3dQs6ZcI5SFXTaQ1f5FyigbSASBPaUnM73D4rkIQxwZFhK9jpIkuxz9KqbF1B"/>
+<div class="absolute inset-0 flex items-center justify-center bg-black/40 text-white font-headline text-5xl">٠٢</div>
+</div>
+<div class="flex flex-col justify-center">
+<h3 class="text-2xl font-bold mb-2">مقام الورع والزهد</h3>
+<p class="text-on-surface-variant mb-4">التخلص من قيود الدنيا لتحقيق حرية الروح الكاملة والوصول لمرتبة القناعة.</p>
+<span class="text-primary font-bold">اقرأ المزيد</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. الأرواح ثلاثة (The Three Spirits) -->
+<section class="category-section py-32 px-12" id="spirits">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-20 space-y-4">
+<h2 class="text-5xl font-bold">الأرواح ثلاثة</h2>
+<p class="text-on-surface-variant max-w-2xl mx-auto">فهم لطائف النفس البشرية ومراتب الترقي الروحي من الترابي إلى القدسي.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="p-10 bg-surface-container-high relative overflow-hidden group min-h-[400px] flex flex-col justify-end">
+<img alt="الروح الإنسانية" class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 transition-opacity duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-ZhL1M5l3Pjf4vkXvyRfNeGV3lOYt4gFY0CSfKrKeWCJnHJ2VLXMaVxXT52YkyH1vs6xmg39ttRTyBYO6Nd0Mx6tSUTPtF_-KLU1l4jNDvamVKX9fcmoPXrLAqqiuo6s-DO2iFWtPoGjYRknB0jAcPUuW04cJO_c64_261Sxc3dU8pLxZRRkewRPmBqfx_nX7SGss5WzkZmzIpn2grOTWoYFYhgUmDJG-6wzOmB_E22kCM5DL3eV76sTgaFvroc_ANcFcWxy0yK0s"/>
+<div class="absolute -right-8 -top-8 text-primary/10 text-[10rem] font-bold select-none transition-transform group-hover:scale-110">١</div>
+<h4 class="text-2xl font-bold mb-4 relative z-10">الروح الإنسانية</h4>
+<p class="text-on-surface-variant relative z-10">بيان الروح المتعلقة بالجسد وحواس الإدراك المادي.</p>
+</div>
+<div class="p-10 bg-surface-container-high relative overflow-hidden group min-h-[400px] flex flex-col justify-end">
+<img alt="الروح الملكوتية" class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 transition-opacity duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBEFA-AMRycx3A3cQ1ZtHqrkYY43EW_asmQUQEXr5gzHWdErP1l8eosB-G-6S2hbCclo3Snl0eGRZpWTqCAfXpR_gzPUQaEqmaNmj3nYn5RNbjvNL9R2MCYlW4HL0g-6Pqj0Q94C2EaIkXDPxgkoO7I7HCJeBEeeMu0fUkQ5F7tiV7E8EAMFZh8kQCozE4qeB-SCgsIuyPzARI0Twx-KjAFn9VuFBE28cd2gaxi7rZEqS70iOjl1x1hhesZ8wG7hJ6A-f9O8fGbATA"/>
+<div class="absolute -right-8 -top-8 text-primary/10 text-[10rem] font-bold select-none transition-transform group-hover:scale-110">٢</div>
+<h4 class="text-2xl font-bold mb-4 relative z-10">الروح الملكوتية</h4>
+<p class="text-on-surface-variant relative z-10">مرتبة المكاشفة والارتباط بعالم الغيب واللطف.</p>
+</div>
+<div class="p-10 bg-surface-container-high relative overflow-hidden group min-h-[400px] flex flex-col justify-end">
+<img alt="الروح القدسية" class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-40 transition-opacity duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlGLSJ-A95r2TFd-8UOMweCSkMIPC5qbSXHWqKNeRCPw9ms0AtnYqxSZA3byDYCjVOQSu8ncfSJXECASgYqGHgeNjPVhKnneaIFF0EtB0N_ed6Djo5DO1Z66D0m2iu4JPQF3LX9kUcfYAo444UnrpSs3malBxyFtChUcuA6wO6s9OWKxYBosnZSm9Yvy4TMiu0btOOy1G6EsmfQxFVbgOqJQuUET17sExzx_t5M-iVM_F2pmIxHax-wD0M8Dwtj_pNzxjptOt2HSTI"/>
+<div class="absolute -right-8 -top-8 text-primary/10 text-[10rem] font-bold select-none transition-transform group-hover:scale-110">٣</div>
+<h4 class="text-2xl font-bold mb-4 relative z-10">الروح القدسية</h4>
+<p class="text-on-surface-variant relative z-10">أعلى مراتب الروح، حيث الفناء في الحق والبقاء به.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. علوم القرآن (Quranic Sciences) -->
+<section class="category-section py-32 px-12" id="quran">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-20">
+<div class="md:w-1/3 space-y-8">
+<div class="relative overflow-hidden aspect-square manuscript-border">
+<img alt="علوم القرآن" class="w-full h-full object-cover grayscale opacity-50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlLOL3gcUt8QukVPLr2kWhpM8v7gzi-NPaF48TxgV679F8XS6DgXA2uc1C-WUWMN_2ICXqSOp8suq5cij_NUrSTUsHXmWWvVybMhm-ZRj15p1n6ZtMwrFkAvGhZhmh872ckkdHRNh6-YB5VZlUF_yJZRofaUJhMu77K7Ru_JevRJ3-6NBwpQLqRcBtC-kzUVhIKXFCjYqSbALmB9fYuFNmrqjLRZvxTjmcUoxY5OCQdgS47Bsx4SVfG5Cw24kTzpHVuaiK0-JUqAUt"/>
+<div class="absolute inset-0 noor-glow"></div>
+</div>
+<h2 class="text-5xl font-bold text-[#1C1F26]">علوم القرآن</h2>
+<p class="text-xl leading-relaxed text-on-surface-variant">القرآن حمال أوجه، وهنا نبحث في وجوهه الإشارية وما بطن من معانيه العظيمة.</p>
+<button class="px-8 py-3 bg-[#1C1F26] text-white">استكشف المكتبة القرآنية</button>
+</div>
+<div class="md:w-2/3 grid grid-cols-1 gap-8">
+<div class="border-b border-primary/10 pb-8 flex justify-between items-center group cursor-pointer">
+<div class="flex gap-6 items-center">
+<div class="w-20 h-20 flex-shrink-0 overflow-hidden manuscript-border">
+<img alt="تأويل" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyA3WYi0YV_NUJl87FPWl1PsKr4Ai3vdRaG22gZSS-z4fldDQLFwucU0VDpRPekESC8nynN2zxCLeFi_jGXZUGrDpA4RbiJJdjXWBsif06UIdE1LD7-xNmsKZVxIW18VTL8gX2wF180QM3m41QRO-1DlIYcCOcRUc8ZbRuaBr1Qp8ubsfjcpXfC-7xxUCX_sQV8Un3gTjsusb__HB0_Udds_vyP_KaA0GLMB03itrmgDCv9Gr2FHqRc4jdnuhH0SByMWu9KZMsJ1to"/>
+</div>
+<div class="space-y-2">
+<h4 class="text-2xl font-bold group-hover:text-primary transition-colors">مفهوم التأويل عند أهل الله</h4>
+<p class="text-on-surface-variant">الفرق بين التفسير الظاهر والتأويل الباطن المعتبر.</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary group-hover:-translate-x-2 transition-transform">arrow_back</span>
+</div>
+<div class="border-b border-primary/10 pb-8 flex justify-between items-center group cursor-pointer">
+<div class="flex gap-6 items-center">
+<div class="w-20 h-20 flex-shrink-0 overflow-hidden manuscript-border">
+<img alt="أسرار الحروف" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPZz_XzQus8BzNwCPOxUIpw5wrm911gHZf_3awR2_JuHEm8hBukN618ACdVj-NhOkaRXQStiNfJjP8SzF49ll_LqICnVsM-meC0_FPwdg416qK1FwG50ndvAiRZwZvD8GvGPYejLMz9TTW5I9TyQTiSXmwaEWBKwzVpFvKpZCvp_8_FP1cbl-y1rLt6HkhIzwC5BuvRwNuq2hvBcW8EjRkb3xitUkGR1Jei3ZiCgEAtijIUVFy2OxYb80btxfwPtBqE2qeNtGVVH6c"/>
+</div>
+<div class="space-y-2">
+<h4 class="text-2xl font-bold group-hover:text-primary transition-colors">أسرار الحروف المقطعة</h4>
+<p class="text-on-surface-variant">تأملات في أوائل السور وما تحمله من إشارات كونية.</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary group-hover:-translate-x-2 transition-transform">arrow_back</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. السنة الصحيحة (Authentic Sunnah) -->
+<section class="category-section py-32 px-12" id="sunnah">
+<div class="max-w-7xl mx-auto">
+<div class="flex items-center gap-4 mb-16">
+<div class="h-px flex-grow bg-primary/20"></div>
+<h2 class="text-4xl font-bold px-8">أنوار النبوة</h2>
+<div class="h-px flex-grow bg-primary/20"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div class="relative overflow-hidden manuscript-border bg-white group hover:bg-primary transition-all duration-500">
+<img alt="آداب وأخلاق" class="absolute inset-0 w-full h-full object-cover opacity-10 grayscale group-hover:opacity-20 group-hover:scale-110 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsGYKR6g74J0mm12_vFKL4b4vP5P_SkRGFhCMa9nbPL3d4UNAoWVhJrBzk6AQeXpUei5v7zKokcyo-k0xrJmhC-G3DTD2yPSlvZeFFYn41fxbDDuuZ0zL4I276vUMXkqjvDtFT5E3j0ThPf7pvHJFGw75Y-39qgp6cAGBhmtCX2d2JhRK5WtbF8IOsGi1j_Q_DSfNjfuKSs5wVZti-yAuNo8FiR40J1Yd212FOnGivMqKc95IgySRY4tgKyQSdzCQ8rDD3oATV75L_"/>
+<div class="p-8 relative z-10">
+<h3 class="text-3xl font-bold mb-4 group-hover:text-white transition-colors">السنة آداباً وأخلاقاً</h3>
+<p class="text-on-surface-variant group-hover:text-white/80 mb-6 transition-colors">كيف نتمثل الهدي النبوي في تعاملنا اليومي مع النفس والآخرين.</p>
+<span class="text-primary font-bold group-hover:text-white transition-colors">طالع المبحث</span>
+</div>
+</div>
+<div class="relative overflow-hidden manuscript-border bg-white group hover:bg-primary transition-all duration-500">
+<img alt="فقه القلوب" class="absolute inset-0 w-full h-full object-cover opacity-10 grayscale group-hover:opacity-20 group-hover:scale-110 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeUt-egQ3nmxQDXmCiZ3zMhF1MGSBlmluCmTerrTB1nYTQotVOWmNa0Fi4wtDFz-m3wUu3N72CP1Beb1W0RcOWY8s1HKtHJ7Eb_lDzngUwRMIZEysq_WRipO7MIUnkiaoJ2xpD1qgoEKS05n9vA7z4BGK_BX_PiQgq1kX2_Q7Sv1VrT2-_RirsortC12dz5m48tz1Ka9ZnawbTIBswMCNAYS-t1CTHDwiXRyeek2brCpXCk-Fo_5HQkbHgRL43HG7hI6VcIkL450zb"/>
+<div class="p-8 relative z-10">
+<h3 class="text-3xl font-bold mb-4 group-hover:text-white transition-colors">فقه القلوب في الأحاديث</h3>
+<p class="text-on-surface-variant group-hover:text-white/80 mb-6 transition-colors">قراءة في الصحاح تركز على الجوانب الروحية وتزكية النفس.</p>
+<span class="text-primary font-bold group-hover:text-white transition-colors">طالع المبحث</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 7. عصمة الأنبياء (Prophets Infallibility) -->
+<section class="category-section py-32 px-12" id="infallibility">
+<div class="max-w-5xl mx-auto text-center">
+<h2 class="text-5xl font-bold mb-8">عصمة الأنبياء</h2>
+<div class="w-24 h-1 bg-primary mx-auto mb-12"></div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-right">
+<div class="space-y-4 p-8 bg-surface-container-lowest manuscript-border group">
+<div class="h-40 mb-6 overflow-hidden">
+<img alt="تنزيه" class="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWACl1UD-aiDlAcCfms6AOR6qRxZJpc01XWn6JPShLu4MYKGIhBMkBmrm_oePFAhGTWhq44OpK_if2ZngKnVhLrMUSX0Q5kbCS4fRSx0sdKqPYVp-OozTeLv_5IoXvKaLVEBS1IjPmFESnI_eIuMHly8L6XgLpnKTp335QESUPgvnE4X19MnM5uS1SqI3MSec1TY6i6TfXQyvUYHSj0OELuVTCmprDRO9SJVaRvzjskvr33EvPcDzRdRuIjIbzxEPwzkWAqxsmhRDU"/>
+</div>
+<h4 class="text-2xl font-bold">تنزيه مقام النبوة</h4>
+<p class="text-on-surface-variant leading-relaxed">رد الشبهات حول قصص الأنبياء وبيان طهارتهم من كل نقص بشري يخل بالرسالة.</p>
+</div>
+<div class="space-y-4 p-8 bg-surface-container-lowest manuscript-border group">
+<div class="h-40 mb-6 overflow-hidden">
+<img alt="قدوة" class="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuwuokLORF61FriWvq4NTJbXIGn5mIVl3CYIGGQdweB5PQzy4Px2klO47bXeZi8AG15udI1ws-fuMNWBaPpOpOGvRjCpJ5MxnM2feVFnnMC5z00enNol0iWfRtPBQLWJskd2jhCN4Uo3SRlwy_e24A80Cuzo4juxLSqboWeO_thXbDqmqJlvj9cD4AkW5JG2w-OzuRmF5X3ld48NSK12-6vKpt1PvAUzwJ1X0BIdolJCB10mTFDhXdZSQMUxz9fm3zZVoA7VLt5hlX"/>
+</div>
+<h4 class="text-2xl font-bold">الأنبياء قدوة مطلقة</h4>
+<p class="text-on-surface-variant leading-relaxed">لماذا استوجب العقل والشرع عصمة من يمثلون الوحي الإلهي في الأرض.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 8. السير والسلوك (Path & Conduct) -->
+<section class="category-section py-32 px-12" id="conduct">
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+<h2 class="text-5xl font-bold">السير والسلوك</h2>
+<p class="text-primary font-bold text-xl italic">"من لم يكن له شيخ فشيخه الشيطان"</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-0 border border-outline-variant/20">
+<div class="relative p-12 border-l border-outline-variant/20 hover:bg-primary transition-all group overflow-hidden min-h-[400px] flex flex-col justify-center">
+<img alt="أوراد" class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-30 transition-opacity duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7OywXyFosn-p7aHWAh5Mt8qrB9NbE-ivwTPNUP5rHX8Djs7Njux0AcJPSIQMX9x4uxD-8Q0j1STlOZOim6ebC3EOsBK6MvDe83aO53a3qA-rSVnLOX5TaIEG68KazjdDc6d5dvIeWCi975s3OKDUfMOE8-s4uUMW8z1FneXWAukIDfQlQVHbQk4YMBKq_W43nCVF2R13wM6S4roQLhhbai2O2vVTB85EZBOKdSbMZ0yHZXclUcOFtVakNVFBgvP2KCn9bjNTt52pB"/>
+<div class="relative z-10">
+<h4 class="text-2xl font-bold mb-4 group-hover:text-white transition-colors">أوراد المريد</h4>
+<p class="text-on-surface-variant group-hover:text-white/80 transition-colors">المداومة على الذكر وأثره في تصفية الباطن وجلب السكينة.</p>
+</div>
+</div>
+<div class="relative p-12 border-l border-outline-variant/20 hover:bg-primary transition-all group overflow-hidden min-h-[400px] flex flex-col justify-center">
+<img alt="صحبة" class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-30 transition-opacity duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDd9JiPCVLswzeWfMDqH7AqXwLu1NH8D60ZUPUg6Y5vAhqJ-_l3Vas6B2M4THr_42R7hM6B0Nb8ILkmxrcEskg_YQx8OzOYxwitkJyj9f_kNp2e5G8qDszJke3TLNQhxJ42bXa91xcUsfOGNLMkFA13gJBQSorRix4t1vvaXzx9cqKlCQP0fZm4MRFEKyr2UkeqqelMW5PlNtQWObhX11st6rhEA8UWMGCaf-AvPTK6mgvyn1GgAMWTGuWZWknylbYStvhYZPAY1eh"/>
+<div class="relative z-10">
+<h4 class="text-2xl font-bold mb-4 group-hover:text-white transition-colors">آداب الصحبة</h4>
+<p class="text-on-surface-variant group-hover:text-white/80 transition-colors">كيف تختار من يرافقك في رحلتك الروحية وما هي حقوق الإخوان.</p>
+</div>
+</div>
+<div class="relative p-12 hover:bg-primary transition-all group overflow-hidden min-h-[400px] flex flex-col justify-center">
+<img alt="مجاهدة" class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-30 transition-opacity duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDydN_m38mfOdANpkVmd72z71FzpAz-4nOTdZWJWtz03gGfAYtCzK24H93ezmt6gIlHIpNXqH932Q2zphQBGlODeDFCpXIQZBxTyVPZYtLsKJzlkKUJeKEHLmj6Gh7p8gMqkNetpdY3u-D_qhOVv2FMf_wGEwEZhMqVkiFm6gH4ZsXsQHYWGt-3B1efn6y0RfAjWzB0xSCODEeyuq2JEmsW3Wm6ZhNnntZLvtgM34SsyusPGsIubrzlAOxZrZxGWmJ1VZwwxKcRXZnb"/>
+<div class="relative z-10">
+<h4 class="text-2xl font-bold mb-4 group-hover:text-white transition-colors">المجاهدة الكبرى</h4>
+<p class="text-on-surface-variant group-hover:text-white/80 transition-colors">محاربة هوى النفس ومنعها من الركون إلى الكسل والشهوات.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 9. المناسك (Rituals) -->
+<section class="category-section py-32 px-12" id="rituals">
+<div class="max-w-7xl mx-auto flex gap-12 items-center flex-col md:flex-row">
+<div class="md:w-1/2">
+<div class="mb-8 manuscript-border overflow-hidden h-64">
+<img alt="المناسك" class="w-full h-full object-cover grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcEgxHBdu2V1gPTFJiBiun5ZnGNmGVVWSNH4wdfeSwJRv98z0zb5P6jCxIOPwebnnl-UP2MVVz3p2A7ViXasZH2r_mTbxLA38MDf95Deqbx5UKzW3jvjUkhjIcLpGwCwOavN3nhKpK6jtOJyUTEHxTMOcQl5JcF-7Vy0UpUgO_kp4EN08SYgeWlZhc5Ow8jv1JR5rzEYRIN2zt0-tTBh58HYS5FrfPSUt0mD8zaWy4NBFKCDExQC4sa1VBvNLNAAw8dFUApfF3xY_j"/>
+</div>
+<h2 class="text-5xl font-bold mb-6">المناسك</h2>
+<p class="text-2xl text-on-surface-variant mb-8 font-amiri leading-loose">
+                        ليست المناسك مجرد حركات، بل هي لغة الجسد في مخاطبة الروح. نكشف هنا عن الأسرار الروحية للصلاة والصيام والحج.
+                    </p>
+<a class="inline-block px-10 py-4 border-2 border-primary text-primary font-bold hover:bg-primary hover:text-white transition-all" href="#">اكتشف أسرار العبادات</a>
+</div>
+<div class="md:w-1/2 grid grid-cols-1 gap-6">
+<div class="manuscript-border p-6 bg-white flex gap-6 items-center group">
+<div class="w-24 h-24 flex-shrink-0 overflow-hidden manuscript-border">
+<img alt="وضوء" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAa1WfBWBIreDMkkGp6V8nNugL4pC3lNYZyD5aLUP6udyZkxp-CdtC4DmU4DbhKTUqu0OCGC7zI53pkXvjZsw3fmQAO1UdljW-piF8Prh_wYrPgYzNktxGCDUtJbhdVkc3ZxD8QTbQ1zafZbNVW0imUk33wYI2LBQZ_s9gSTaK_jwqp8EQvc1A9CFt0p_KqKKmKuhH9q8X47x0A72Ro84sD5WHGuJzF2zfQqlKUFTtD74FamHzbx8Qk3SZakwIMMcnkVDHIkOEW5GY"/>
+</div>
+<div>
+<h4 class="text-xl font-bold mb-2">أسرار الوضوء</h4>
+<p class="text-sm opacity-70">غسل الباطن قبل الظاهر والاستعداد للقاء الملك.</p>
+</div>
+</div>
+<div class="manuscript-border p-6 bg-white flex gap-6 items-center group">
+<div class="w-24 h-24 flex-shrink-0 overflow-hidden manuscript-border">
+<img alt="صيام" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCq-ilkugVSeuxPkXoRzaqIw3IGOOfoaxu4zCbk6iX8e1UWfhGF3vP90TqASIo5vAIrbMRJ46o3rKeuM-Jjc8XgmH8rZ4hTQAVlsu2bsg4EfppTd4bonCulfES4n1agvYlFVyGDrHMpwQ5KAXIh9yiaxZAqnZCrpHDEPxsHpNSQu5jyHuOwkboMZg-sQnXITqr0Vzy-xYfk-AdwFycW3QiBzXdFyCT9-bIusgiWigRSGhbGQwqsd6b194y4D_IUTvrywRt6ye5Q3M_s"/>
+</div>
+<div>
+<h4 class="text-xl font-bold mb-2">حقيقة الصيام</h4>
+<p class="text-sm opacity-70">صوم الجوارح وصوم القلب عن كل ما سوى الله.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 10. حقائق (Spiritual Truths) -->
+<section class="category-section py-32 px-12" id="truths">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-16">
+<h2 class="text-6xl font-bold text-[#1C1F26]">حقائق</h2>
+<p class="text-primary mt-4 text-xl">خلاصات التجارب الذوقية والمعارف اللدنية</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+<article class="space-y-4 p-8 border-b-2 border-primary/10 hover:border-primary transition-all group bg-surface-container-lowest">
+<div class="aspect-video mb-6 overflow-hidden manuscript-border">
+<img alt="التوحيد" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCo-VEUEeI7VRs0zPsX7t02tWimO_4B3AJMLLEc_2DVtsW2uYvXsTPSi60hulshXvbz03QoWF8fdBdYPaZNgPPansVeGot9BWpPZ3qZ9mGAD7TTAIm-A7coBXG_nY1SDbKtWFXv_OgbQFI_--zCx886iFcO26g_vR6x8Vo5Wtz7wrsS39uoWlI8n_YBp-3YytbtOCa2ZuVLZ7-Q2yhHrode2g4g7nn92n5a6fTS_g0vIPBZZ0pnNGrQFQHSICZkjlXRxLK4Nnvu2ylw"/>
+</div>
+<span class="text-xs font-label text-primary/60 tracking-widest uppercase">حقيقة التوحيد</span>
+<h3 class="text-2xl font-bold">وحدة الشهود ومعناها</h3>
+<p class="text-on-surface-variant">بحث في رؤية يد الله تعمل في كل تفاصيل الوجود.</p>
+</article>
+<article class="space-y-4 p-8 border-b-2 border-primary/10 hover:border-primary transition-all group bg-surface-container-lowest">
+<div class="aspect-video mb-6 overflow-hidden manuscript-border">
+<img alt="الوقت" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXwBc29xz_fT76hvcoesE-glPm2ZoOLwhIwnuSt6hVgcPX5K3fr3yZF0pNMFJJ-JRZNKKXzApdUhMRV_1Ii-rjQ84vCOOZxgIipc0wyVh8CdXQW0U22aHIu18rfweOes_-H37idjAU6e2ZlwT938gUtkUUMogs0_2C4cFSUIzOkAbbP3tXSYHeHADtx3iA0oM8F6nl5Bzh9_KJmQgW9SFfDo0NNBVxq0is7IRD4ErJ9fi88Xa9wSTv6ct4WncdqAEvjltobcZwBDRC"/>
+</div>
+<span class="text-xs font-label text-primary/60 tracking-widest uppercase">حقيقة الوقت</span>
+<h3 class="text-2xl font-bold">ابن الوقت وحكمته</h3>
+<p class="text-on-surface-variant">كيف يعيش العارف في "الآن" وكيف يدرك بركة اللحظة.</p>
+</article>
+<article class="space-y-4 p-8 border-b-2 border-primary/10 hover:border-primary transition-all group bg-surface-container-lowest">
+<div class="aspect-video mb-6 overflow-hidden manuscript-border">
+<img alt="الموت" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWb1R4x4o0qpBre3-HSmJe3lXuo3CjTc82G1RjvMwtfTW3bupom0URS6C6NS7PGcEKNtWj6n-yBaSHALFOJvxY5hMCZQIJgRahyoFUTVKmJVVq6EcUNTxObGjTi8feYbpdhHDFms6XUsYv1FDieocj-rN2qrwSW2kBTEnpz0LPi6Dzczo7HZpZAbhWl6dELjd1zRQMfikDbqWtnytzQsHmFwLCVOu-uqGGumTpcoCr4bU2F0vgqgY4K3gw9GBdbXRs-W66E-0cOzGm"/>
+</div>
+<span class="text-xs font-label text-primary/60 tracking-widest uppercase">حقيقة الموت</span>
+<h3 class="text-2xl font-bold">الموت قبل الموت</h3>
+<p class="text-on-surface-variant">فلسفة فناء الإرادة الشخصية في الإرادة الإلهية.</p>
+</article>
+</div>
+</div>
+</section>
+<!-- Newsletter / Invitation -->
+<section class="py-32 px-12 bg-surface-container-lowest border-y border-primary/10 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
+<div class="max-w-4xl mx-auto text-center relative z-10">
+<h2 class="text-5xl font-bold mb-8">اشترك في رسائل العودة</h2>
+<p class="text-2xl text-on-surface-variant mb-12">خلاصات معرفية وإشراقات روحية تصلك دورياً عبر بريدك.</p>
+<form class="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto">
+<input class="flex-grow bg-transparent border-0 border-b border-outline-variant py-4 px-0 focus:ring-0 focus:border-primary transition-all text-xl placeholder:text-on-surface-variant/40" placeholder="عنوان بريدك الإلكتروني" type="email"/>
+<button class="bg-[#1C1F26] text-white px-12 py-4 text-xl hover:bg-primary transition-all">انضمام</button>
+</form>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full flex flex-col items-center justify-center px-8 border-t border-[#C5A059]/20 bg-[#FDFBF7] pt-24 pb-12">
+<div class="max-w-7xl w-full grid grid-cols-1 md:grid-cols-4 gap-16 mb-24">
+<div class="col-span-1 md:col-span-2 space-y-8">
+<h3 class="text-4xl font-bold text-[#1C1F26]">عودة</h3>
+<p class="text-xl text-on-surface-variant leading-relaxed max-w-md">
+                    مساحة رقمية مخصصة للبحث في العلوم الإلهية وتراث السير والسلوك، نهدف لتقديم المعرفة الصافية في قالب عصري رصين.
+                </p>
+<div class="flex gap-8">
+<a class="text-[#1C1F26] hover:text-[#C5A059] transition-all underline-offset-8 hover:underline" href="#">Facebook</a>
+<a class="text-[#1C1F26] hover:text-[#C5A059] transition-all underline-offset-8 hover:underline" href="#">Instagram</a>
+<a class="text-[#1C1F26] hover:text-[#C5A059] transition-all underline-offset-8 hover:underline" href="#">YouTube</a>
+</div>
+</div>
+<div class="space-y-6">
+<h4 class="text-lg font-bold text-primary font-label uppercase tracking-widest">خريطة الموقع</h4>
+<ul class="space-y-4">
+<li><a class="text-on-surface hover:text-primary transition-colors" href="#">الرئيسية</a></li>
+<li><a class="text-on-surface hover:text-primary transition-colors" href="#">عن المشروع</a></li>
+<li><a class="text-on-surface hover:text-primary transition-colors" href="#">المقالات</a></li>
+<li><a class="text-on-surface hover:text-primary transition-colors" href="#">المكتبة الرقمية</a></li>
+</ul>
+</div>
+<div class="space-y-6">
+<h4 class="text-lg font-bold text-primary font-label uppercase tracking-widest">تواصل معنا</h4>
+<ul class="space-y-4">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-sm">mail</span>
+<span>contact@awda.spirit</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span>القاهرة، جمهورية مصر العربية</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="w-full text-center space-y-8">
+<div class="w-24 h-px bg-primary/20 mx-auto"></div>
+<p class="font-amiri text-sm tracking-wide opacity-60 text-primary italic">© عودة - رحلة العودة إلى الحق</p>
+</div>
+</footer>
+<!-- Side Navigation Trigger -->
+<aside class="fixed right-0 top-0 h-screen flex flex-col pt-24 z-40 bg-[#FDFBF7] w-16 border-l border-[#C5A059]/10 group hover:w-80 transition-all duration-500 overflow-hidden">
+<div class="flex flex-col gap-8 h-full">
+<div class="flex items-center gap-6 px-4 group-hover:px-8 transition-all">
+<span class="material-symbols-outlined text-primary">auto_awesome</span>
+<span class="whitespace-nowrap font-bold text-primary opacity-0 group-hover:opacity-100 transition-opacity">العلوم الإلهية</span>
+</div>
+<nav class="flex-grow flex flex-col gap-2">
+<a class="flex items-center gap-6 px-4 group-hover:px-8 py-3 text-[#1C1F26] hover:bg-[#F5F3EF] transition-all border-r-2 border-transparent hover:border-primary" href="#how-to-start">
+<span class="material-symbols-outlined">stars</span>
+<span class="opacity-0 group-hover:opacity-100 whitespace-nowrap">كيف أبدأ</span>
+</a>
+<a class="flex items-center gap-6 px-4 group-hover:px-8 py-3 text-[#1C1F26] hover:bg-[#F5F3EF] transition-all border-r-2 border-transparent hover:border-primary" href="#valleys">
+<span class="material-symbols-outlined">terrain</span>
+<span class="opacity-0 group-hover:opacity-100 whitespace-nowrap">الأودية السبعة</span>
+</a>
+<a class="flex items-center gap-6 px-4 group-hover:px-8 py-3 text-[#1C1F26] hover:bg-[#F5F3EF] transition-all border-r-2 border-transparent hover:border-primary" href="#stations">
+<span class="material-symbols-outlined">auto_stories</span>
+<span class="opacity-0 group-hover:opacity-100 whitespace-nowrap">مقامات الرحلة</span>
+</a>
+<div class="mt-auto mb-8 px-4 group-hover:px-8 flex items-center gap-6">
+<span class="material-symbols-outlined text-primary/40">settings</span>
+<span class="opacity-0 group-hover:opacity-100 text-sm font-label uppercase tracking-widest text-primary/40">إعدادات</span>
+</div>
+</nav>
+</div>
+</aside>
+</body></html>
