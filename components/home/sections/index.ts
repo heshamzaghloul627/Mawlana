@@ -1,0 +1,11 @@
+export { default as HowToStartSection } from "./HowToStartSection";
+export { default as ValleysSection } from "./ValleysSection";
+export { default as StationsSection } from "./StationsSection";
+export { default as SpiritsSection } from "./SpiritsSection";
+export { default as QuranSection } from "./QuranSection";
+export { default as SunnahSection } from "./SunnahSection";
+export { default as InfallibilitySection } from "./InfallibilitySection";
+export { default as ConductSection } from "./ConductSection";
+export { default as RitualsSection } from "./RitualsSection";
+export { default as TruthsSection } from "./TruthsSection";
+export { default as LatestArticlesSection } from "./LatestArticlesSection";

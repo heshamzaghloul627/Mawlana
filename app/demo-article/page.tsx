@@ -5,7 +5,7 @@ export default function DemoArticlePage() {
     <Reader
       title="العلم اللدني: علم الأسرار"
       author="الشيخ محمد الغزالي"
-      category="divine"
+      category="quran"
       lang="ar"
       content={
         <div className="space-y-8">

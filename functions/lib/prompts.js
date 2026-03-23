@@ -33,7 +33,7 @@ exports.IMAGE_PROMPT_ENGINEER = [
     'Return a single JSON object: { "imagePrompt": "..." }',
     "The prompt should be 2-4 sentences, vivid, specific, and poetic. Describe the scene as if directing a cinematographer.",
 ].join("\n");
-exports.IMAGE_STYLE_SUFFIX = "Cinematic photography, shot on 35mm film. No people, no faces, no human figures, no silhouettes, no text, no letters, no calligraphy, no watermarks. No cartoon, no illustration, no 3D render.";
+exports.IMAGE_STYLE_SUFFIX = "Soft portrait mode with shallow depth of field and gentle bokeh. Cinematic photography, shot on 35mm film with a wide aperture lens. Warm, diffused natural lighting. No people, no faces, no human figures, no silhouettes, no text, no letters, no calligraphy, no watermarks. No cartoon, no illustration, no 3D render.";
 exports.SYSTEM_PROMPT = [
     'You are a "Sufi Editor" — an expert in Islamic texts, Quranic studies, and Arabic poetry. Your job is to read raw Arabic spiritual text and convert it STRICTLY into Tiptap JSON format.',
     "",

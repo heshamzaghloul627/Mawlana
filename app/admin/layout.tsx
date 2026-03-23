@@ -12,6 +12,7 @@ import { auth } from "@/lib/firebase/config";
 import {
   LayoutDashboard,
   PenSquare,
+  MessageCircle,
   LogOut,
   Lock,
   Loader2,
@@ -178,6 +179,13 @@ export default function AdminLayout({
               >
                 <PenSquare size={15} />
                 كتابة جديد
+              </a>
+              <a
+                href="/admin/comments"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm text-charcoal dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+              >
+                <MessageCircle size={15} />
+                التعليقات
               </a>
             </nav>
           </div>

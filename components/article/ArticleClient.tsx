@@ -142,6 +142,9 @@ export default function ArticleClient({
         coverImage={article.coverImage}
         createdAt={article.created_at}
         readingTime={readingTime}
+        articleId={article.id}
+        articleSlug={slug}
+        articleCategory={article.category}
         content={<TiptapRenderer content={content} lang={displayLang} />}
       />
     </>

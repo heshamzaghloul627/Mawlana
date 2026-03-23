@@ -26,7 +26,10 @@ const ARTICLES_COLLECTION = "articles";
 /**
  * All valid categories
  */
-export const CATEGORIES: Category[] = ["quran", "human", "divine", "behavior"];
+export const CATEGORIES: Category[] = [
+  "how-to-start", "valleys", "stations", "spirits", "quran",
+  "sunnah", "infallibility", "conduct", "rituals", "truths",
+];
 
 /**
  * Fetches all published articles with optional filters
@@ -190,12 +193,11 @@ export async function getAllCategoriesArticles(
     CATEGORIES.map((cat) => getArticlesByCategory(cat, limitPerCategory))
   );
 
-  return {
-    quran: results[0],
-    human: results[1],
-    divine: results[2],
-    behavior: results[3],
-  };
+  const record = {} as Record<Category, Article[]>;
+  CATEGORIES.forEach((cat, i) => {
+    record[cat] = results[i];
+  });
+  return record;
 }
 
 /**
@@ -271,10 +273,16 @@ export function getCategoryName(
   lang: "ar" | "en"
 ): string {
   const names: Record<Category, { ar: string; en: string }> = {
-    quran: { ar: "أنوار القرآن", en: "Lights of the Quran" },
-    human: { ar: "الإنسان", en: "The Human" },
-    divine: { ar: "المعرفة الإلهية", en: "Divine Knowledge" },
-    behavior: { ar: "السلوك", en: "Conduct" },
+    "how-to-start": { ar: "كيف أبدأ", en: "How to Start" },
+    valleys: { ar: "الأودية السبعة", en: "The 7 Valleys" },
+    stations: { ar: "مقامات الرحلة", en: "Spiritual Stations" },
+    spirits: { ar: "الأرواح ثلاثة", en: "The Three Spirits" },
+    quran: { ar: "علوم القرآن", en: "Quranic Sciences" },
+    sunnah: { ar: "أنوار النبوة", en: "Prophetic Lights" },
+    infallibility: { ar: "عصمة الأنبياء", en: "Prophets' Infallibility" },
+    conduct: { ar: "السير والسلوك", en: "Path & Conduct" },
+    rituals: { ar: "المناسك", en: "Rituals" },
+    truths: { ar: "حقائق", en: "Spiritual Truths" },
   };
 
   return names[category]?.[lang] || category;

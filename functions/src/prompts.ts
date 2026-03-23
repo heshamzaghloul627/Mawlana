@@ -33,7 +33,7 @@ export const IMAGE_PROMPT_ENGINEER = [
 ].join("\n");
 
 export const IMAGE_STYLE_SUFFIX =
-  "Cinematic photography, shot on 35mm film. No people, no faces, no human figures, no silhouettes, no text, no letters, no calligraphy, no watermarks. No cartoon, no illustration, no 3D render.";
+  "Soft portrait mode with shallow depth of field and gentle bokeh. Cinematic photography, shot on 35mm film with a wide aperture lens. Warm, diffused natural lighting. No people, no faces, no human figures, no silhouettes, no text, no letters, no calligraphy, no watermarks. No cartoon, no illustration, no 3D render.";
 
 export const SYSTEM_PROMPT = [
   'You are a "Sufi Editor" — an expert in Islamic texts, Quranic studies, and Arabic poetry. Your job is to read raw Arabic spiritual text and convert it STRICTLY into Tiptap JSON format.',

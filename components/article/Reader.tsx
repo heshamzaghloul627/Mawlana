@@ -18,6 +18,7 @@ import {
 import { getArticles, getCategoryName } from "@/lib/firebase/articles";
 import type { Article } from "@/types";
 import type { TocHeading } from "@/lib/utils/parseTiptapContent";
+import CommentsSection from "./CommentsSection";
 
 /* ==============================
    localStorage helpers for likes/bookmarks
@@ -51,6 +52,9 @@ interface ReaderProps {
   telegramLink?: string;
   createdAt?: any;
   readingTime?: number;
+  articleId?: string;
+  articleSlug?: string;
+  articleCategory?: string;
 }
 
 export default function Reader({
@@ -63,6 +67,9 @@ export default function Reader({
   coverImage,
   createdAt,
   readingTime = 0,
+  articleId,
+  articleSlug,
+  articleCategory,
 }: ReaderProps) {
   const articleRef = useRef<HTMLElement>(null);
   const [headingsReady, setHeadingsReady] = useState(false);
@@ -408,6 +415,17 @@ export default function Reader({
               </span>
             </div>
           </motion.div>
+
+          {/* Comments Section */}
+          {articleId && (
+            <CommentsSection
+              articleId={articleId}
+              articleTitle={title}
+              articleSlug={articleSlug || ""}
+              articleCategory={articleCategory || category}
+              lang={lang}
+            />
+          )}
         </div>
 
         {/* Sidebar */}

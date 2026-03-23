@@ -40,10 +40,16 @@ const TiptapEditor = dynamic(() => import("@/components/admin/TiptapEditor"), {
 });
 
 const CATEGORIES: { value: Category; label: string }[] = [
-  { value: "quran", label: "أنوار القرآن" },
-  { value: "human", label: "الإنسان" },
-  { value: "divine", label: "المعرفة الإلهية" },
-  { value: "behavior", label: "السلوك" },
+  { value: "how-to-start", label: "كيف أبدأ" },
+  { value: "valleys", label: "الأودية السبعة" },
+  { value: "stations", label: "مقامات الرحلة" },
+  { value: "spirits", label: "الأرواح ثلاثة" },
+  { value: "quran", label: "علوم القرآن" },
+  { value: "sunnah", label: "أنوار النبوة" },
+  { value: "infallibility", label: "عصمة الأنبياء" },
+  { value: "conduct", label: "السير والسلوك" },
+  { value: "rituals", label: "المناسك" },
+  { value: "truths", label: "حقائق" },
 ];
 
 export default function AdminEditPage() {
@@ -59,7 +65,7 @@ export default function AdminEditPage() {
   // Editable fields
   const [title, setTitle] = useState("");
   const [excerpt, setExcerpt] = useState("");
-  const [category, setCategory] = useState<Category>("divine");
+  const [category, setCategory] = useState<Category>("how-to-start");
   const [status, setStatus] = useState<"draft" | "published">("published");
   const [featured, setFeatured] = useState(false);
   const [coverImage, setCoverImage] = useState<string | null>(null);

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { BookOpen, Heart, Sparkles, Compass } from "lucide-react";
+import { BookOpen, Heart, Sparkles, Compass, Mountain, Shield, Sun, Route, Landmark, Eye, Users } from "lucide-react";
 import type { Category } from "@/types";
 
 interface GenerativeCoverProps {
@@ -20,29 +20,65 @@ const CATEGORY_CONFIG: Record<
     nameEn: string;
   }
 > = {
+  "how-to-start": {
+    gradient: "from-amber-950 via-yellow-900 to-neutral-950",
+    icon: Sparkles,
+    nameAr: "كيف أبدأ",
+    nameEn: "How to Start",
+  },
+  valleys: {
+    gradient: "from-emerald-950 via-emerald-900 to-neutral-950",
+    icon: Mountain,
+    nameAr: "الأودية السبعة",
+    nameEn: "The 7 Valleys",
+  },
+  stations: {
+    gradient: "from-indigo-950 via-indigo-900 to-neutral-950",
+    icon: BookOpen,
+    nameAr: "مقامات الرحلة",
+    nameEn: "Spiritual Stations",
+  },
+  spirits: {
+    gradient: "from-purple-950 via-purple-900 to-neutral-950",
+    icon: Users,
+    nameAr: "الأرواح ثلاثة",
+    nameEn: "The Three Spirits",
+  },
   quran: {
     gradient: "from-amber-950 via-yellow-900 to-neutral-950",
     icon: BookOpen,
-    nameAr: "أنوار القرآن",
-    nameEn: "Lights of the Quran",
+    nameAr: "علوم القرآن",
+    nameEn: "Quranic Sciences",
   },
-  human: {
+  sunnah: {
     gradient: "from-amber-950 via-amber-900 to-neutral-950",
-    icon: Heart,
-    nameAr: "الإنسان",
-    nameEn: "The Human",
+    icon: Sun,
+    nameAr: "أنوار النبوة",
+    nameEn: "Prophetic Lights",
   },
-  divine: {
-    gradient: "from-emerald-950 via-emerald-900 to-neutral-950",
-    icon: Sparkles,
-    nameAr: "المعرفة الإلهية",
-    nameEn: "Divine Knowledge",
+  infallibility: {
+    gradient: "from-slate-900 via-slate-800 to-neutral-950",
+    icon: Shield,
+    nameAr: "عصمة الأنبياء",
+    nameEn: "Prophets' Infallibility",
   },
-  behavior: {
+  conduct: {
     gradient: "from-slate-900 via-indigo-950 to-neutral-950",
-    icon: Compass,
-    nameAr: "السلوك",
-    nameEn: "Conduct",
+    icon: Route,
+    nameAr: "السير والسلوك",
+    nameEn: "Path & Conduct",
+  },
+  rituals: {
+    gradient: "from-emerald-950 via-teal-900 to-neutral-950",
+    icon: Landmark,
+    nameAr: "المناسك",
+    nameEn: "Rituals",
+  },
+  truths: {
+    gradient: "from-rose-950 via-rose-900 to-neutral-950",
+    icon: Eye,
+    nameAr: "حقائق",
+    nameEn: "Spiritual Truths",
   },
 };
 

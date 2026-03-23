@@ -2,23 +2,67 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
-import { Menu, X, Sun, Moon } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import {
+  Menu,
+  X,
+  Sun,
+  Moon,
+  ChevronDown,
+  Sparkles,
+  Mountain,
+  BookOpen,
+  Users,
+  BookMarked,
+  Sun as SunIcon,
+  Shield,
+  Route,
+  Landmark,
+  Eye,
+} from "lucide-react";
 import { useTheme } from "@/components/ThemeProvider";
+import { CATEGORY_CONFIG } from "@/lib/categories";
 import logoImg from "@/public/logo.png";
 
-const navLinks = [
-  { href: "/", label: "الرئيسية" },
-  { href: "/ar/quran", label: "أنوار القرآن" },
-  { href: "/ar/human", label: "الإنسان" },
-  { href: "/ar/divine", label: "المعرفة الإلهية" },
-  { href: "/ar/behavior", label: "السلوك" },
-  { href: "/about", label: "عن مولانا" },
-];
+const iconMap: Record<string, React.ReactNode> = {
+  Sparkles: <Sparkles className="w-5 h-5" />,
+  Mountain: <Mountain className="w-5 h-5" />,
+  BookOpen: <BookOpen className="w-5 h-5" />,
+  Users: <Users className="w-5 h-5" />,
+  BookMarked: <BookMarked className="w-5 h-5" />,
+  Sun: <SunIcon className="w-5 h-5" />,
+  Shield: <Shield className="w-5 h-5" />,
+  Route: <Route className="w-5 h-5" />,
+  Landmark: <Landmark className="w-5 h-5" />,
+  Eye: <Eye className="w-5 h-5" />,
+};
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [categoriesOpen, setCategoriesOpen] = useState(false);
+  const [megaMenuOpen, setMegaMenuOpen] = useState(false);
+  const megaMenuTimeout = useRef<NodeJS.Timeout | null>(null);
   const { theme, toggleTheme } = useTheme();
+
+  // Close mobile menu on route change (resize)
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setMobileOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const handleMegaEnter = () => {
+    if (megaMenuTimeout.current) clearTimeout(megaMenuTimeout.current);
+    setMegaMenuOpen(true);
+  };
+
+  const handleMegaLeave = () => {
+    megaMenuTimeout.current = setTimeout(() => setMegaMenuOpen(false), 150);
+  };
 
   return (
     <nav className="fixed w-full z-50 top-0 start-0 border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-background-dark/90 backdrop-blur-md">
@@ -40,15 +84,67 @@ export default function Navbar() {
 
           {/* Desktop Nav Links */}
           <div className="hidden md:flex space-x-8 space-x-reverse items-center">
-            {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-accent-gold px-3 py-2 text-lg font-amiri transition-colors"
+            <Link
+              href="/"
+              className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-accent-gold px-3 py-2 text-lg font-amiri transition-colors"
+            >
+              الرئيسية
+            </Link>
+
+            {/* العلوم الإلهية - Mega Menu */}
+            <div
+              className="relative"
+              onMouseEnter={handleMegaEnter}
+              onMouseLeave={handleMegaLeave}
+            >
+              <button
+                className="flex items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-accent-gold px-3 py-2 text-lg font-amiri transition-colors"
               >
-                {link.label}
-              </Link>
-            ))}
+                <span>العلوم الإلهية</span>
+                <ChevronDown
+                  className={`w-4 h-4 transition-transform duration-300 ${
+                    megaMenuOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {/* Dropdown */}
+              <div
+                className={`absolute top-full left-1/2 -translate-x-1/2 w-[580px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-xl transition-all duration-300 p-6 grid grid-cols-2 gap-x-8 gap-y-1 rounded-lg ${
+                  megaMenuOpen
+                    ? "visible opacity-100 translate-y-0"
+                    : "invisible opacity-0 -translate-y-2"
+                }`}
+              >
+                {CATEGORY_CONFIG.map((cat) => (
+                  <Link
+                    key={cat.slug}
+                    href={`/ar/${cat.slug}`}
+                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-white/5 transition-colors border-r-2 border-transparent hover:border-primary"
+                    onClick={() => setMegaMenuOpen(false)}
+                  >
+                    <span className="text-primary dark:text-accent-gold">
+                      {iconMap[cat.icon]}
+                    </span>
+                    <div>
+                      <span className="text-gray-900 dark:text-white font-amiri text-base font-medium">
+                        {cat.name_ar}
+                      </span>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-1">
+                        {cat.description_ar}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <Link
+              href="/about"
+              className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-accent-gold px-3 py-2 text-lg font-amiri transition-colors"
+            >
+              عن مولانا
+            </Link>
           </div>
 
           {/* Actions */}
@@ -102,18 +198,56 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="md:hidden border-t border-gray-200 dark:border-gray-800 bg-white/95 dark:bg-background-dark/95 backdrop-blur-md">
+        <div className="md:hidden border-t border-gray-200 dark:border-gray-800 bg-white/95 dark:bg-background-dark/95 backdrop-blur-md max-h-[80vh] overflow-y-auto">
           <div className="px-4 py-4 space-y-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="block px-4 py-3 text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-accent-gold font-amiri text-lg transition-colors rounded-lg"
-                onClick={() => setMobileOpen(false)}
+            <Link
+              href="/"
+              className="block px-4 py-3 text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-accent-gold font-amiri text-lg transition-colors rounded-lg"
+              onClick={() => setMobileOpen(false)}
+            >
+              الرئيسية
+            </Link>
+
+            {/* Categories Accordion */}
+            <div>
+              <button
+                className="w-full flex items-center justify-between px-4 py-3 text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-accent-gold font-amiri text-lg transition-colors rounded-lg"
+                onClick={() => setCategoriesOpen(!categoriesOpen)}
               >
-                {link.label}
-              </Link>
-            ))}
+                <span>العلوم الإلهية</span>
+                <ChevronDown
+                  className={`w-4 h-4 transition-transform duration-300 ${
+                    categoriesOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              {categoriesOpen && (
+                <div className="mr-4 border-r-2 border-primary/20 space-y-0.5 pb-2">
+                  {CATEGORY_CONFIG.map((cat) => (
+                    <Link
+                      key={cat.slug}
+                      href={`/ar/${cat.slug}`}
+                      className="flex items-center gap-3 px-4 py-2.5 text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-accent-gold font-amiri text-base transition-colors rounded-lg"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      <span className="text-primary/60 dark:text-accent-gold/60">
+                        {iconMap[cat.icon]}
+                      </span>
+                      <span>{cat.name_ar}</span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <Link
+              href="/about"
+              className="block px-4 py-3 text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-accent-gold font-amiri text-lg transition-colors rounded-lg"
+              onClick={() => setMobileOpen(false)}
+            >
+              عن مولانا
+            </Link>
+
             <div className="border-t border-gray-200 dark:border-gray-800 pt-3 mt-3 space-y-1">
               <Link
                 href="https://t.me/Awdaah"

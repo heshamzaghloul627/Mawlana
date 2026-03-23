@@ -73,6 +73,26 @@
         "region": "us-east1"
       },
       {
+        "source": "/api/submitcomment",
+        "function": "submitcomment",
+        "region": "us-east1"
+      },
+      {
+        "source": "/api/getcomments",
+        "function": "getcomments",
+        "region": "us-east1"
+      },
+      {
+        "source": "/api/replytocomment",
+        "function": "replytocomment",
+        "region": "us-east1"
+      },
+      {
+        "source": "/api/updatecommentstatus",
+        "function": "updatecommentstatus",
+        "region": "us-east1"
+      },
+      {
         "source": "**",
         "destination": "/404.html"
       }

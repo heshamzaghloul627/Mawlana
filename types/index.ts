@@ -3,7 +3,17 @@ import { Timestamp } from "firebase/firestore";
 /**
  * Article category types
  */
-export type Category = "quran" | "human" | "divine" | "behavior";
+export type Category =
+  | "how-to-start"
+  | "valleys"
+  | "stations"
+  | "spirits"
+  | "quran"
+  | "sunnah"
+  | "infallibility"
+  | "conduct"
+  | "rituals"
+  | "truths";
 
 /**
  * Article status
@@ -97,6 +107,29 @@ export interface ArticleQueryOptions {
   status?: ArticleStatus;
   featured?: boolean;
   limit?: number;
+}
+
+/**
+ * Comment status
+ */
+export type CommentStatus = "pending" | "approved" | "rejected";
+
+/**
+ * Comment on an article
+ */
+export interface Comment {
+  id: string;
+  articleId: string;
+  articleTitle: string;
+  articleSlug: string;
+  articleCategory: string;
+  name: string;
+  email: string;
+  text: string;
+  status: CommentStatus;
+  adminReply?: string;
+  adminRepliedAt?: Timestamp;
+  created_at: Timestamp;
 }
 
 /**

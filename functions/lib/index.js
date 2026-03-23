@@ -36,16 +36,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.uploadcover = exports.listcovers = exports.deletearticle = exports.updatearticle = exports.createarticle = exports.getarticle = exports.getarticles = exports.generatecontent = exports.regenerateimage = exports.formatwithai = void 0;
+exports.updatecommentstatus = exports.replytocomment = exports.getcomments = exports.submitcomment = exports.uploadcover = exports.listcovers = exports.deletearticle = exports.updatearticle = exports.createarticle = exports.getarticle = exports.getarticles = exports.generatecontent = exports.regenerateimage = exports.formatwithai = void 0;
 const functions = __importStar(require("firebase-functions"));
 const admin = __importStar(require("firebase-admin"));
 const openai_1 = __importDefault(require("openai"));
 const sharp_1 = __importDefault(require("sharp"));
+const resend_1 = require("resend");
 const prompts_1 = require("./prompts");
 admin.initializeApp();
 const db = admin.firestore();
 const storage = admin.storage();
 const ARTICLES = "articles";
+const COMMENTS = "comments";
 const ADMIN_EMAILS = [
     "hesham.zaghloul@zatsys.com",
     "mr.hesham.zaghloul@gmail.com",
@@ -425,6 +427,163 @@ exports.uploadcover = functions
         });
         const url = `https://storage.googleapis.com/${bucket.name}/${storagePath}`;
         res.json({ result: { url } });
+    }
+    catch (err) {
+        sendError(res, err);
+    }
+});
+// ─── Comment Functions ──────────────────────────────────────
+exports.submitcomment = functions
+    .region("us-east1")
+    .https.onRequest(async (req, res) => {
+    try {
+        const data = req.body.data || req.body;
+        const { name, email, text, articleId, articleTitle, articleSlug, articleCategory } = data;
+        // Validation
+        if (!name || typeof name !== "string" || name.trim().length < 2 || name.trim().length > 100) {
+            res.status(400).json({ error: { message: "الاسم مطلوب (2-100 حرف)" } });
+            return;
+        }
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            res.status(400).json({ error: { message: "البريد الإلكتروني غير صالح" } });
+            return;
+        }
+        if (!text || typeof text !== "string" || text.trim().length < 5 || text.trim().length > 2000) {
+            res.status(400).json({ error: { message: "التعليق مطلوب (5-2000 حرف)" } });
+            return;
+        }
+        if (!articleId || !articleTitle || !articleSlug || !articleCategory) {
+            res.status(400).json({ error: { message: "بيانات المقال مطلوبة" } });
+            return;
+        }
+        await db.collection(COMMENTS).add({
+            articleId,
+            articleTitle: articleTitle.trim(),
+            articleSlug: articleSlug.trim(),
+            articleCategory: articleCategory.trim(),
+            name: name.trim(),
+            email: email.trim().toLowerCase(),
+            text: text.trim(),
+            status: "pending",
+            created_at: new Date(),
+        });
+        res.json({ result: { success: true } });
+    }
+    catch (err) {
+        sendError(res, err);
+    }
+});
+exports.getcomments = functions
+    .region("us-east1")
+    .https.onRequest(async (req, res) => {
+    try {
+        await verifyAuth(req);
+        const data = req.body.data || req.body;
+        const { status, articleId } = data;
+        let q = db.collection(COMMENTS);
+        if (status) {
+            q = q.where("status", "==", status);
+        }
+        if (articleId) {
+            q = q.where("articleId", "==", articleId);
+        }
+        q = q.orderBy("created_at", "desc");
+        const snapshot = await q.get();
+        res.json({ result: snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) });
+    }
+    catch (err) {
+        sendError(res, err);
+    }
+});
+exports.replytocomment = functions
+    .region("us-east1")
+    .runWith({ timeoutSeconds: 30, secrets: ["RESEND_API_KEY"] })
+    .https.onRequest(async (req, res) => {
+    try {
+        await verifyAuth(req);
+        const data = req.body.data || req.body;
+        const { commentId, reply, newStatus } = data;
+        if (!commentId || !reply?.trim()) {
+            res.status(400).json({ error: { message: "commentId و reply مطلوبان" } });
+            return;
+        }
+        const commentRef = db.collection(COMMENTS).doc(commentId);
+        const commentDoc = await commentRef.get();
+        if (!commentDoc.exists) {
+            res.status(404).json({ error: { message: "التعليق غير موجود" } });
+            return;
+        }
+        const comment = commentDoc.data();
+        const now = new Date();
+        await commentRef.update({
+            adminReply: reply.trim(),
+            adminRepliedAt: now,
+            status: newStatus || "approved",
+        });
+        // Send email notification
+        try {
+            const resendKey = process.env.RESEND_API_KEY;
+            if (resendKey) {
+                const resend = new resend_1.Resend(resendKey);
+                const articleUrl = `https://thereturn-d3f2e.web.app/ar/${comment.articleCategory}/${encodeURIComponent(comment.articleSlug)}`;
+                await resend.emails.send({
+                    from: "عودة <onboarding@resend.dev>",
+                    to: comment.email,
+                    subject: `رد على تعليقك في مقال: ${comment.articleTitle}`,
+                    html: `
+              <div dir="rtl" style="font-family: 'Segoe UI', Tahoma, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; background: #f9f9f7; border-radius: 12px;">
+                <h2 style="color: #1a1a2e; margin-bottom: 8px;">عودة</h2>
+                <p style="color: #555; margin-bottom: 24px;">تم الرد على تعليقك في مقال <strong>${comment.articleTitle}</strong></p>
+
+                <div style="background: #fff; border-radius: 8px; padding: 16px; margin-bottom: 16px; border-right: 4px solid #ccc;">
+                  <p style="color: #888; font-size: 13px; margin: 0 0 6px;">تعليقك:</p>
+                  <p style="color: #333; margin: 0;">${comment.text}</p>
+                </div>
+
+                <div style="background: #fff; border-radius: 8px; padding: 16px; margin-bottom: 24px; border-right: 4px solid #c8a96e;">
+                  <p style="color: #c8a96e; font-size: 13px; margin: 0 0 6px;">الرد:</p>
+                  <p style="color: #333; margin: 0;">${reply.trim()}</p>
+                </div>
+
+                <a href="${articleUrl}" style="display: inline-block; background: #1a1a2e; color: #fff; padding: 10px 24px; border-radius: 8px; text-decoration: none; font-size: 14px;">
+                  قراءة المقال
+                </a>
+
+                <p style="color: #aaa; font-size: 12px; margin-top: 32px;">هذا البريد تم إرساله تلقائيًا من موقع عودة</p>
+              </div>
+            `,
+                });
+            }
+        }
+        catch (emailErr) {
+            console.error("Failed to send reply email:", emailErr);
+            // Don't fail the request if email fails
+        }
+        res.json({ result: { success: true } });
+    }
+    catch (err) {
+        sendError(res, err);
+    }
+});
+exports.updatecommentstatus = functions
+    .region("us-east1")
+    .https.onRequest(async (req, res) => {
+    try {
+        await verifyAuth(req);
+        const data = req.body.data || req.body;
+        const { commentId, status } = data;
+        if (!commentId || !["approved", "rejected", "pending"].includes(status)) {
+            res.status(400).json({ error: { message: "commentId و status مطلوبان" } });
+            return;
+        }
+        const commentRef = db.collection(COMMENTS).doc(commentId);
+        const commentDoc = await commentRef.get();
+        if (!commentDoc.exists) {
+            res.status(404).json({ error: { message: "التعليق غير موجود" } });
+            return;
+        }
+        await commentRef.update({ status });
+        res.json({ result: { success: true } });
     }
     catch (err) {
         sendError(res, err);

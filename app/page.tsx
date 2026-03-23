@@ -3,14 +3,22 @@
 import { useEffect, useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import Link from "next/link";
-import { ArrowLeft, BookOpen, Mail, Quote, Clock } from "lucide-react";
-import {
-  getFeaturedArticles,
-  getAllCategoriesArticles,
-  getCategoryName,
-} from "@/lib/firebase/articles";
+import { Mail, Quote } from "lucide-react";
+import { getAllCategoriesArticles } from "@/lib/firebase/articles";
 import type { Article, Category } from "@/types";
-import type { Timestamp } from "firebase/firestore";
+import {
+  HowToStartSection,
+  ValleysSection,
+  StationsSection,
+  SpiritsSection,
+  QuranSection,
+  SunnahSection,
+  InfallibilitySection,
+  ConductSection,
+  RitualsSection,
+  TruthsSection,
+  LatestArticlesSection,
+} from "@/components/home/sections";
 
 /* ==============================
    Animation Variants
@@ -39,22 +47,6 @@ const scaleIn: Variants = {
     transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
   },
 };
-
-/* ==============================
-   Utilities
-   ============================== */
-function formatArabicDate(timestamp: Timestamp): string {
-  try {
-    const date = timestamp.toDate();
-    return date.toLocaleDateString("ar-SA", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  } catch {
-    return "";
-  }
-}
 
 /* ==============================
    Hero Section
@@ -94,7 +86,7 @@ function HeroSection() {
         >
           عودة
           <span className="block text-3xl md:text-5xl font-amiri font-normal mt-4 text-primary dark:text-accent-gold opacity-90">
-            عودة الإنسان إلى أصله.. إلى الله
+            رحلة باطنية للعودة الي الصبغة الالهية
           </span>
         </motion.h1>
 
@@ -172,223 +164,6 @@ function QuranQuoteBanner() {
           <p className="text-sm text-gray-500 dark:text-gray-400 tracking-wider font-amiri">
             سورة النور : ٣٥
           </p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ==============================
-   Featured Article (Compact Horizontal)
-   ============================== */
-function FeaturedArticles({ articles }: { articles: Article[] }) {
-  const [first, ...rest] = articles;
-
-  return (
-    <section className="py-16 bg-background-light dark:bg-background-dark" id="featured">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl font-amiri font-bold text-gray-900 dark:text-white">
-            مقالات مميزة
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-transparent via-accent-gold to-transparent mx-auto mt-4" />
-        </div>
-
-        {/* Primary featured article — large card */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <Link href={`/ar/${first.category}/${first.slug_ar}`}>
-            <div className="bg-white dark:bg-[#1a202e] rounded-2xl overflow-hidden shadow-xl border border-gray-100 dark:border-gray-800 flex flex-col md:flex-row group">
-              <div className="md:w-1/2 relative h-56 md:h-72">
-                {first.coverImage ? (
-                  <img
-                    src={first.coverImage}
-                    alt={first.title_ar}
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                ) : (
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent-gold/10" />
-                )}
-                <div className="absolute inset-0 bg-primary/10 mix-blend-multiply" />
-                <div className="absolute top-4 right-4">
-                  <span className="bg-accent-gold text-background-dark text-xs font-bold px-3 py-1 rounded-full">
-                    مقال مميز
-                  </span>
-                </div>
-              </div>
-              <div className="md:w-1/2 p-6 md:p-8 flex flex-col justify-center">
-                <div className="text-xs text-primary dark:text-accent-gold font-bold mb-2">
-                  {getCategoryName(first.category, "ar")}
-                </div>
-                <h3 className="text-2xl md:text-3xl font-amiri font-bold text-gray-900 dark:text-white mb-4 leading-relaxed">
-                  {first.title_ar}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-300 font-amiri leading-loose line-clamp-3 mb-6">
-                  {first.excerpt_ar}
-                </p>
-                <div className="flex items-center gap-4">
-                  <span className="inline-flex items-center gap-2 text-primary dark:text-accent-gold font-bold font-amiri text-lg">
-                    <span>اقرأ المقال</span>
-                    <ArrowLeft className="w-4 h-4" />
-                  </span>
-                  <div className="h-px flex-grow bg-gray-200 dark:bg-gray-700" />
-                  <span className="text-xs text-gray-400 flex items-center gap-1">
-                    <Clock className="w-3.5 h-3.5" />
-                    {formatArabicDate(first.created_at)}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </Link>
-        </motion.div>
-
-        {/* Additional featured articles — smaller cards */}
-        {rest.length > 0 && (
-          <div className={`grid gap-6 mt-8 ${rest.length === 1 ? "grid-cols-1 max-w-2xl mx-auto" : "grid-cols-1 md:grid-cols-2"}`}>
-            {rest.map((article, i) => (
-              <motion.div
-                key={article.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: (i + 1) * 0.15 }}
-              >
-                <Link href={`/ar/${article.category}/${article.slug_ar}`}>
-                  <div className="bg-white dark:bg-[#1a202e] rounded-xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-800 group">
-                    <div className="relative h-48">
-                      {article.coverImage ? (
-                        <img
-                          src={article.coverImage}
-                          alt={article.title_ar}
-                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                        />
-                      ) : (
-                        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent-gold/10" />
-                      )}
-                      <div className="absolute inset-0 bg-primary/10 mix-blend-multiply" />
-                      <div className="absolute top-3 right-3">
-                        <span className="bg-accent-gold text-background-dark text-[10px] font-bold px-2 py-0.5 rounded-full">
-                          مميز
-                        </span>
-                      </div>
-                    </div>
-                    <div className="p-5">
-                      <div className="text-xs text-primary dark:text-accent-gold font-bold mb-1.5">
-                        {getCategoryName(article.category, "ar")}
-                      </div>
-                      <h3 className="text-xl font-amiri font-bold text-gray-900 dark:text-white mb-2 leading-relaxed line-clamp-2">
-                        {article.title_ar}
-                      </h3>
-                      <p className="text-gray-600 dark:text-gray-300 font-amiri leading-loose line-clamp-2 text-sm mb-4">
-                        {article.excerpt_ar}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <span className="inline-flex items-center gap-1 text-primary dark:text-accent-gold font-bold font-amiri text-sm">
-                          اقرأ المقال
-                          <ArrowLeft className="w-3.5 h-3.5" />
-                        </span>
-                        <span className="text-xs text-gray-400 flex items-center gap-1">
-                          <Clock className="w-3 h-3" />
-                          {formatArabicDate(article.created_at)}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        )}
-      </div>
-    </section>
-  );
-}
-
-/* ==============================
-   Category Section (3 articles)
-   ============================== */
-function CategorySection({
-  categorySlug,
-  articles,
-}: {
-  categorySlug: Category;
-  articles: Article[];
-}) {
-  const categoryName = getCategoryName(categorySlug, "ar");
-
-  if (articles.length === 0) return null;
-
-  return (
-    <section className="py-16 bg-background-light dark:bg-background-dark">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="flex justify-between items-end mb-8">
-          <div>
-            <h2 className="text-2xl font-amiri font-bold text-gray-900 dark:text-white">
-              {categoryName}
-            </h2>
-            <div className="w-16 h-0.5 bg-gradient-to-r from-accent-gold to-transparent mt-2" />
-          </div>
-          <Link
-            href={`/ar/${categorySlug}`}
-            className="flex items-center gap-1 text-sm text-primary dark:text-accent-gold font-bold hover:underline"
-          >
-            <span>عرض المزيد</span>
-            <ArrowLeft className="w-3.5 h-3.5" />
-          </Link>
-        </div>
-
-        {/* Articles Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {articles.map((article, i) => (
-            <motion.div
-              key={article.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-            >
-              <Link href={`/ar/${article.category}/${article.slug_ar}`}>
-                <article className="group bg-white dark:bg-[#151b26] rounded-xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-gray-100 dark:border-gray-800 flex flex-col h-full">
-                  <div className="relative h-40 overflow-hidden">
-                    {article.coverImage ? (
-                      <img
-                        src={article.coverImage}
-                        alt={article.title_ar}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-primary/10 to-accent-gold/10" />
-                    )}
-                    <div className="absolute top-3 right-3 bg-background-dark/80 backdrop-blur-md text-white text-xs px-2.5 py-0.5 rounded-full border border-white/10">
-                      {categoryName}
-                    </div>
-                  </div>
-                  <div className="p-5 flex-grow flex flex-col">
-                    <h3 className="text-lg font-amiri font-bold text-gray-900 dark:text-gray-100 mb-2 group-hover:text-primary dark:group-hover:text-accent-gold transition-colors line-clamp-2">
-                      {article.title_ar}
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-3 flex-grow line-clamp-2">
-                      {article.excerpt_ar}
-                    </p>
-                    <div className="flex items-center justify-between mt-auto border-t border-gray-100 dark:border-gray-700 pt-3">
-                      <span className="text-xs text-gray-400 flex items-center gap-1">
-                        <Clock className="w-3 h-3" />
-                        {formatArabicDate(article.created_at)}
-                      </span>
-                      <span className="text-primary dark:text-accent-gold text-sm font-bold">
-                        اقرأ
-                      </span>
-                    </div>
-                  </div>
-                </article>
-              </Link>
-            </motion.div>
-          ))}
         </div>
       </div>
     </section>
@@ -567,45 +342,48 @@ function NewsletterCTA() {
    Home Page
    ============================== */
 export default function HomePage() {
-  const [featured, setFeatured] = useState<Article[]>([]);
-  const [categoryArticles, setCategoryArticles] = useState<Record<Category, Article[]>>({
-    quran: [],
-    human: [],
-    divine: [],
-    behavior: [],
-  });
+  const [categoryArticles, setCategoryArticles] = useState<Record<Category, Article[]> | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
-      const [featuredResults, allCategories] = await Promise.all([
-        getFeaturedArticles(3),
-        getAllCategoriesArticles(3),
-      ]);
-      setFeatured(featuredResults);
-      setCategoryArticles(allCategories);
-      setLoading(false);
+      try {
+        const allCategories = await getAllCategoriesArticles(3);
+        setCategoryArticles(allCategories);
+      } catch (err) {
+        console.error("Error fetching category articles:", err);
+      } finally {
+        setLoading(false);
+      }
     }
     fetchData();
   }, []);
 
-  const categories: Category[] = ["quran", "human", "divine", "behavior"];
+  const articles = categoryArticles;
 
   return (
     <main>
       <HeroSection />
       <QuranQuoteBanner />
 
-      {!loading && featured.length > 0 && <FeaturedArticles articles={featured} />}
+      {/* احدث الأنوار — Latest Articles */}
+      <LatestArticlesSection />
 
-      {!loading &&
-        categories.map((cat) => (
-          <CategorySection
-            key={cat}
-            categorySlug={cat}
-            articles={categoryArticles[cat]}
-          />
-        ))}
+      {/* Category Sections */}
+      {!loading && articles && (
+        <>
+          <HowToStartSection articles={articles["how-to-start"]} />
+          <ValleysSection articles={articles["valleys"]} />
+          <StationsSection articles={articles["stations"]} />
+          <SpiritsSection articles={articles["spirits"]} />
+          <QuranSection articles={articles["quran"]} />
+          <SunnahSection articles={articles["sunnah"]} />
+          <InfallibilitySection articles={articles["infallibility"]} />
+          <ConductSection articles={articles["conduct"]} />
+          <RitualsSection articles={articles["rituals"]} />
+          <TruthsSection articles={articles["truths"]} />
+        </>
+      )}
 
       <SoulLevels />
       <NewsletterCTA />
