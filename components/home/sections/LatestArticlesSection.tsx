@@ -3,9 +3,10 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Loader2 } from "lucide-react";
+import { Loader2, ArrowLeft } from "lucide-react";
 import { getArticles, getCategoryName } from "@/lib/firebase/articles";
 import type { Article } from "@/types";
+import CoverImage from "@/components/ui/CoverImage";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -23,7 +24,7 @@ export default function LatestArticlesSection() {
   useEffect(() => {
     async function fetchLatest() {
       try {
-        const latest = await getArticles({ status: "published", limit: 6 });
+        const latest = await getArticles({ status: "published", limit: 5 });
         setArticles(latest);
       } catch (err) {
         console.error("Error fetching latest articles:", err);
@@ -44,34 +45,65 @@ export default function LatestArticlesSection() {
 
   if (!articles.length) return null;
 
+  const [hero, ...rest] = articles;
+
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-12 bg-white dark:bg-background-dark">
+    <section className="py-20 sm:py-28 px-4 sm:px-6 lg:px-12 bg-white dark:bg-background-dark" id="featured">
       <div className="max-w-7xl mx-auto">
-        <div className="flex items-end justify-between mb-10">
-          <div className="space-y-3">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white font-amiri"
-            >
-              احدث الأنوار
-            </motion.h2>
-            <div className="w-16 h-1 bg-accent-gold" />
-          </div>
-        </div>
-
-        <div className="flex justify-end mb-6">
-          <Link
-            href="/ar/how-to-start"
-            className="text-primary dark:text-accent-gold hover:underline font-bold font-amiri"
+        <div className="mb-12">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white font-kufi"
           >
-            عرض جميع المقالات
-          </Link>
+            احدث الأنوار
+          </motion.h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {articles.map((article, i) => (
+        {/* Hero Article */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-8"
+        >
+          <Link
+            href={`/ar/${hero.category}/${hero.slug_ar}`}
+            className="group block md:flex md:gap-0 overflow-hidden bg-gray-50 dark:bg-gray-900 rounded-2xl"
+          >
+            <div className="md:w-3/5 aspect-[16/10] md:aspect-auto relative overflow-hidden rounded-2xl md:rounded-l-none">
+              {hero.coverImage ? (
+                <CoverImage
+                  src={hero.coverImage}
+                  alt={hero.title_ar}
+                  className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700"
+                  priority
+                />
+              ) : (
+                <div className="w-full h-full bg-gradient-to-br from-primary/10 to-accent-gold/10" />
+              )}
+            </div>
+            <div className="md:w-2/5 p-8 sm:p-10 flex flex-col justify-center">
+              <span className="text-xs sm:text-sm tracking-[0.2em] uppercase font-bold text-accent-gold mb-3 block">
+                {getCategoryName(hero.category, "ar")}
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white font-kufi mb-3 leading-snug">
+                {hero.title_ar}
+              </h3>
+              <p className="text-gray-500 dark:text-gray-400 line-clamp-3 text-sm sm:text-base font-amiri leading-relaxed mb-5">
+                {hero.excerpt_ar}
+              </p>
+              <span className="text-sm sm:text-base text-primary dark:text-accent-gold font-bold font-amiri">
+                اقرأ المقال كاملاً
+              </span>
+            </div>
+          </Link>
+        </motion.div>
+
+        {/* Remaining Articles Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {rest.map((article, i) => (
             <motion.div
               key={article.id}
               custom={i}
@@ -82,40 +114,44 @@ export default function LatestArticlesSection() {
             >
               <Link
                 href={`/ar/${article.category}/${article.slug_ar}`}
-                className="group block bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 hover:border-primary/40 dark:hover:border-accent-gold/40 overflow-hidden transition-all"
+                className="group block"
               >
-                <div className="h-44 overflow-hidden relative bg-gradient-to-br from-primary/10 to-accent-gold/10">
-                  {article.coverImage && (
-                    <img
+                <div className="aspect-[4/3] overflow-hidden relative mb-4 rounded-xl">
+                  {article.coverImage ? (
+                    <CoverImage
                       src={article.coverImage}
                       alt={article.title_ar}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                      thumbnail
                     />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-primary/10 to-accent-gold/10" />
                   )}
-                  <div className="absolute top-3 start-3">
-                    <span className="bg-primary/90 dark:bg-accent-gold/90 text-white dark:text-gray-900 text-xs font-bold px-3 py-1 rounded-full">
-                      {getCategoryName(article.category, "ar")}
-                    </span>
-                  </div>
+                  <div className="absolute inset-0 bg-amber-900/5 mix-blend-multiply" />
                 </div>
-                <div className="p-5">
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white font-amiri mb-2 line-clamp-2">
-                    {article.title_ar}
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
-                    {article.excerpt_ar}
-                  </p>
-                  <div className="text-xs text-gray-400">
-                    {article.created_at?.toDate?.()
-                      ? new Intl.DateTimeFormat("ar-SA", { dateStyle: "medium" }).format(
-                          article.created_at.toDate()
-                        )
-                      : ""}
-                  </div>
-                </div>
+                <span className="text-xs tracking-[0.2em] uppercase font-bold text-accent-gold/70 mb-1 block">
+                  {getCategoryName(article.category, "ar")}
+                </span>
+                <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white font-kufi line-clamp-2 mb-1">
+                  {article.title_ar}
+                </h3>
+                <p className="text-xs sm:text-sm text-gray-400 line-clamp-1 font-amiri">
+                  {article.excerpt_ar}
+                </p>
               </Link>
             </motion.div>
           ))}
+        </div>
+
+        {/* View all — left side (end in RTL), prominent */}
+        <div className="mt-12 flex justify-end">
+          <Link
+            href="/ar/how-to-start"
+            className="group inline-flex items-center gap-2 text-base sm:text-lg text-primary dark:text-accent-gold font-bold font-amiri hover:gap-3 transition-all"
+          >
+            <span>عرض جميع الأنوار</span>
+            <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+          </Link>
         </div>
       </div>
     </section>

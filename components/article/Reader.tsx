@@ -19,6 +19,7 @@ import { getArticles, getCategoryName } from "@/lib/firebase/articles";
 import type { Article } from "@/types";
 import type { TocHeading } from "@/lib/utils/parseTiptapContent";
 import CommentsSection from "./CommentsSection";
+import CoverImage from "@/components/ui/CoverImage";
 
 /* ==============================
    localStorage helpers for likes/bookmarks
@@ -200,10 +201,11 @@ export default function Reader({
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <img
+              <CoverImage
                 src={coverImage}
                 alt={title}
                 className="w-full h-64 sm:h-80 lg:h-96 object-cover"
+                priority
               />
             </motion.div>
           )}
@@ -571,10 +573,11 @@ function SuggestedArticles({ lang, currentTitle }: { lang: "ar" | "en"; currentT
               <Link href={href} className="block group">
                 {article.coverImage && (
                   <div className="h-28 rounded-lg overflow-hidden mb-2">
-                    <img
+                    <CoverImage
                       src={article.coverImage}
                       alt={articleTitle}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      thumbnail
                     />
                   </div>
                 )}

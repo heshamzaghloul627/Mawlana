@@ -2,67 +2,70 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { ArrowLeft } from "lucide-react";
 import type { Article } from "@/types";
+import CoverImage from "@/components/ui/CoverImage";
 
 export default function QuranSection({ articles }: { articles: Article[] }) {
   if (!articles.length) return null;
 
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-12 bg-white dark:bg-background-dark">
+    <section className="py-24 sm:py-32 px-4 sm:px-6 lg:px-12 bg-white dark:bg-background-dark">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-12 lg:gap-20">
         {/* Sidebar */}
         <div className="md:w-1/3 space-y-6">
-          <div className="relative overflow-hidden aspect-square border border-accent-gold/20 bg-gradient-to-br from-primary/5 to-accent-gold/10">
-            {articles[0]?.coverImage && (
-              <img
+          <div className="relative overflow-hidden aspect-[4/3]">
+            {articles[0]?.coverImage ? (
+              <CoverImage
                 src={articles[0].coverImage}
                 alt="علوم القرآن"
-                className="w-full h-full object-cover grayscale opacity-50"
+                className="w-full h-full object-cover"
+                priority
               />
+            ) : (
+              <div className="w-full h-full bg-gradient-to-br from-primary/10 to-accent-gold/10" />
             )}
+            <div className="absolute inset-0 bg-amber-900/10 mix-blend-multiply" />
           </div>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white font-amiri"
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white font-kufi"
           >
             علوم القرآن
           </motion.h2>
-          <p className="text-lg leading-relaxed text-gray-600 dark:text-gray-400 font-amiri">
+          <p className="text-gray-500 dark:text-gray-400 font-amiri leading-relaxed">
             القرآن حمال أوجه، وهنا نبحث في وجوهه الإشارية وما بطن من معانيه العظيمة.
           </p>
-          <Link
-            href="/ar/quran"
-            className="inline-block px-8 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-amiri font-bold hover:bg-primary dark:hover:bg-accent-gold transition-colors"
-          >
-            استكشف المكتبة القرآنية
-          </Link>
         </div>
 
         {/* Article List */}
-        <div className="md:w-2/3 grid grid-cols-1 gap-6">
+        <div className="md:w-2/3 flex flex-col justify-center gap-0">
           {articles.map((article) => (
             <Link
               key={article.id}
               href={`/ar/quran/${article.slug_ar}`}
-              className="border-b border-primary/10 dark:border-accent-gold/10 pb-6 flex justify-between items-center group cursor-pointer"
+              className="flex justify-between items-center group py-8 border-b border-gray-200 dark:border-gray-800 first:border-t"
             >
-              <div className="flex gap-4 sm:gap-6 items-center">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 overflow-hidden border border-accent-gold/20 bg-gradient-to-br from-primary/5 to-accent-gold/10">
-                  {article.coverImage && (
-                    <img
+              <div className="flex gap-5 items-center">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 overflow-hidden">
+                  {article.coverImage ? (
+                    <CoverImage
                       src={article.coverImage}
                       alt={article.title_ar}
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all"
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                      thumbnail
                     />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-primary/5 to-accent-gold/10" />
                   )}
                 </div>
-                <div className="space-y-1">
-                  <h4 className="text-lg sm:text-2xl font-bold group-hover:text-primary dark:group-hover:text-accent-gold transition-colors text-gray-900 dark:text-white font-amiri">
+                <div>
+                  <h4 className="text-lg sm:text-xl font-bold group-hover:text-primary dark:group-hover:text-accent-gold transition-colors text-gray-900 dark:text-white font-kufi">
                     {article.title_ar}
                   </h4>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base line-clamp-1">
+                  <p className="text-gray-400 text-sm mt-1 line-clamp-1 font-amiri">
                     {article.excerpt_ar}
                   </p>
                 </div>
@@ -70,6 +73,15 @@ export default function QuranSection({ articles }: { articles: Article[] }) {
             </Link>
           ))}
         </div>
+      </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 mt-12 flex justify-end">
+        <Link
+          href="/ar/quran"
+          className="group inline-flex items-center gap-2 text-base sm:text-lg text-primary dark:text-accent-gold font-bold font-amiri hover:gap-3 transition-all"
+        >
+          <span>استكشف علوم القرآن</span>
+          <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+        </Link>
       </div>
     </section>
   );

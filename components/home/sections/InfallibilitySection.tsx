@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { ArrowLeft } from "lucide-react";
 import type { Article } from "@/types";
+import CoverImage from "@/components/ui/CoverImage";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -17,25 +19,20 @@ export default function InfallibilitySection({ articles }: { articles: Article[]
   if (!articles.length) return null;
 
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-12 bg-white dark:bg-background-dark">
+    <section className="py-24 sm:py-32 px-4 sm:px-6 lg:px-12 bg-white dark:bg-background-dark">
       <div className="max-w-5xl mx-auto text-center">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl sm:text-5xl font-bold mb-6 text-gray-900 dark:text-white font-amiri"
+          className="text-3xl sm:text-5xl font-bold mb-4 text-gray-900 dark:text-white font-kufi"
         >
           عصمة الأنبياء
         </motion.h2>
-        <div className="w-24 h-1 bg-accent-gold mx-auto mb-6" />
-        <Link
-          href="/ar/infallibility"
-          className="inline-block mb-12 text-primary dark:text-accent-gold hover:underline font-bold font-amiri"
-        >
-          جميع مباحث العصمة
-        </Link>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 text-right">
+        <p className="text-gray-500 dark:text-gray-400 font-amiri text-lg mt-3 max-w-2xl mx-auto">
+          تنزيه مقام النبوة والرد على الشبهات، فالأنبياء قدوة مطلقة لا يعتريها نقص.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 text-right mt-14">
           {articles.slice(0, 2).map((article, i) => (
             <motion.div
               key={article.id}
@@ -47,26 +44,40 @@ export default function InfallibilitySection({ articles }: { articles: Article[]
             >
               <Link
                 href={`/ar/infallibility/${article.slug_ar}`}
-                className="space-y-4 p-6 sm:p-8 bg-white dark:bg-gray-900 border border-accent-gold/20 group block"
+                className="block group"
               >
-                <div className="h-40 mb-4 overflow-hidden bg-gradient-to-br from-primary/5 to-accent-gold/10">
-                  {article.coverImage && (
-                    <img
+                <div className="aspect-[16/10] mb-5 overflow-hidden relative">
+                  {article.coverImage ? (
+                    <CoverImage
                       src={article.coverImage}
                       alt={article.title_ar}
-                      className="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all"
+                      className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
+                      thumbnail
                     />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-primary/5 to-accent-gold/10" />
                   )}
+                  <div className="absolute inset-0 bg-amber-900/5 mix-blend-multiply" />
                 </div>
-                <h4 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white font-amiri">
+                <h4 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white font-kufi mb-2">
                   {article.title_ar}
                 </h4>
-                <p className="text-gray-600 dark:text-gray-400 leading-relaxed line-clamp-2">
+                <p className="text-gray-500 dark:text-gray-400 text-sm font-amiri leading-relaxed line-clamp-2">
                   {article.excerpt_ar}
                 </p>
               </Link>
             </motion.div>
           ))}
+        </div>
+
+        <div className="mt-12 flex justify-end">
+          <Link
+            href="/ar/infallibility"
+            className="group inline-flex items-center gap-2 text-base sm:text-lg text-primary dark:text-accent-gold font-bold font-amiri hover:gap-3 transition-all"
+          >
+            <span>تعرف على باقي الأنبياء</span>
+            <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+          </Link>
         </div>
       </div>
     </section>

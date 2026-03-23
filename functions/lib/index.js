@@ -81,7 +81,9 @@ async function verifyAuth(req) {
     return { uid: decoded.uid, email };
 }
 function sendError(res, err) {
-    const code = typeof err.code === "number" ? err.code : 500;
+    const rawCode = typeof err.code === "number" ? err.code : 500;
+    // Ensure valid HTTP status code (100-599); gRPC codes (e.g. 7) are not valid
+    const code = rawCode >= 100 && rawCode < 600 ? rawCode : 500;
     const message = err.message || "Internal error";
     res.status(code).json({ error: { message, status: code } });
 }
@@ -470,6 +472,7 @@ exports.submitcomment = functions
         res.json({ result: { success: true } });
     }
     catch (err) {
+        console.error("submitcomment error:", err);
         sendError(res, err);
     }
 });

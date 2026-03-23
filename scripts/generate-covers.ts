@@ -27,6 +27,7 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import OpenAI from "openai";
+import sharp from "sharp";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -105,21 +106,33 @@ async function generateImage(prompt: string): Promise<Buffer> {
     response_format: "b64_json",
   });
 
-  const b64 = response.data[0]?.b64_json;
+  const b64 = response.data?.[0]?.b64_json;
   if (!b64) throw new Error("No image data returned");
   return Buffer.from(b64, "base64");
 }
 
 async function uploadToStorage(imageBuffer: Buffer, articleId: string): Promise<string> {
-  const path = `covers/${articleId}-${Date.now()}.png`;
-  const storageRef = ref(storage, path);
+  const ts = Date.now();
+  const sharpInput = sharp(imageBuffer);
 
-  await uploadBytes(storageRef, imageBuffer, {
-    contentType: "image/png",
-    cacheControl: "public, max-age=31536000",
-  });
+  const [webpFull, webpThumb, jpegFull] = await Promise.all([
+    sharpInput.clone().resize(1200, 675, { fit: "cover" }).webp({ quality: 75 }).toBuffer(),
+    sharpInput.clone().resize(600, 338, { fit: "cover" }).webp({ quality: 65 }).toBuffer(),
+    sharpInput.clone().resize(1200, 675, { fit: "cover" }).jpeg({ quality: 80 }).toBuffer(),
+  ]);
 
-  return getDownloadURL(storageRef);
+  const webpPath = `covers/${articleId}-${ts}.webp`;
+  const thumbPath = `covers/${articleId}-${ts}_thumb.webp`;
+  const jpegPath = `covers/${articleId}-${ts}.jpg`;
+  const cacheControl = "public, max-age=31536000";
+
+  await Promise.all([
+    uploadBytes(ref(storage, webpPath), webpFull, { contentType: "image/webp", cacheControl }),
+    uploadBytes(ref(storage, thumbPath), webpThumb, { contentType: "image/webp", cacheControl }),
+    uploadBytes(ref(storage, jpegPath), jpegFull, { contentType: "image/jpeg", cacheControl }),
+  ]);
+
+  return getDownloadURL(ref(storage, webpPath));
 }
 
 async function main() {

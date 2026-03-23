@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { getFeaturedArticles, getCategoryName } from "@/lib/firebase/articles";
 import type { Article } from "@/types";
+import CoverImage from "@/components/ui/CoverImage";
 
 export default function RecentArticles() {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -53,10 +54,11 @@ export default function RecentArticles() {
               <div className="group rounded-lg border border-gold/20 bg-ivory/50 backdrop-blur-sm hover:border-gold/40 transition-all duration-500 overflow-hidden">
                 {article.coverImage && (
                   <div className="h-48 overflow-hidden">
-                    <img
+                    <CoverImage
                       src={article.coverImage}
                       alt={article.title_ar}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      thumbnail
                     />
                   </div>
                 )}

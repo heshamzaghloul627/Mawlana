@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { ArrowLeft } from "lucide-react";
 import type { Article } from "@/types";
+import CoverImage from "@/components/ui/CoverImage";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -17,31 +19,25 @@ export default function ConductSection({ articles }: { articles: Article[] }) {
   if (!articles.length) return null;
 
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-12 bg-gray-50 dark:bg-[#0d1119]">
+    <section className="py-24 sm:py-32 px-4 sm:px-6 lg:px-12 bg-[#faf9f6] dark:bg-background-dark border-t border-accent-gold/10">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white font-amiri"
-          >
-            السير والسلوك
-          </motion.h2>
-          <div className="flex flex-col items-end gap-3">
-            <p className="text-primary dark:text-accent-gold font-bold text-lg sm:text-xl italic font-amiri">
-              &ldquo;من لم يكن له شيخ فشيخه الشيطان&rdquo;
-            </p>
-            <Link
-              href="/ar/conduct"
-              className="text-primary dark:text-accent-gold hover:underline font-bold font-amiri"
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-14 gap-4">
+          <div>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-3xl sm:text-5xl font-bold text-gray-900 dark:text-white font-kufi"
             >
-              جميع آداب الطريق
-            </Link>
+              السير والسلوك
+            </motion.h2>
+            <p className="text-gray-500 dark:text-gray-400 font-amiri text-lg mt-3 max-w-2xl">
+              آداب الطريق وأوراد المريد والمجاهدة، فمن لم يكن له شيخ فشيخه الشيطان.
+            </p>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border border-gray-200 dark:border-gray-700">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border border-gray-200 dark:border-gray-800">
           {articles.slice(0, 3).map((article, i) => (
             <motion.div
               key={article.id}
@@ -53,28 +49,38 @@ export default function ConductSection({ articles }: { articles: Article[] }) {
             >
               <Link
                 href={`/ar/conduct/${article.slug_ar}`}
-                className={`relative p-8 sm:p-12 hover:bg-primary dark:hover:bg-primary transition-all group overflow-hidden min-h-[350px] sm:min-h-[400px] flex flex-col justify-center block ${
-                  i < 2 ? "border-b md:border-b-0 md:border-l border-gray-200 dark:border-gray-700" : ""
+                className={`relative p-8 sm:p-10 hover:bg-primary dark:hover:bg-primary transition-all duration-500 group overflow-hidden min-h-[320px] sm:min-h-[380px] flex flex-col justify-end block ${
+                  i < 2 ? "border-b md:border-b-0 md:border-l border-gray-200 dark:border-gray-800" : ""
                 }`}
               >
                 {article.coverImage && (
-                  <img
+                  <CoverImage
                     src={article.coverImage}
                     alt={article.title_ar}
-                    className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-30 transition-opacity duration-700"
+                    className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-20 transition-opacity duration-700"
                   />
                 )}
                 <div className="relative z-10">
-                  <h4 className="text-xl sm:text-2xl font-bold mb-3 group-hover:text-white transition-colors text-gray-900 dark:text-white font-amiri">
+                  <h4 className="text-lg sm:text-xl font-bold mb-2 group-hover:text-white transition-colors text-gray-900 dark:text-white font-kufi">
                     {article.title_ar}
                   </h4>
-                  <p className="text-gray-600 dark:text-gray-400 group-hover:text-white/80 transition-colors line-clamp-2">
+                  <p className="text-gray-500 dark:text-gray-400 group-hover:text-white/70 transition-colors line-clamp-2 text-sm font-amiri">
                     {article.excerpt_ar}
                   </p>
                 </div>
               </Link>
             </motion.div>
           ))}
+        </div>
+
+        <div className="mt-12 flex justify-end">
+          <Link
+            href="/ar/conduct"
+            className="group inline-flex items-center gap-2 text-base sm:text-lg text-primary dark:text-accent-gold font-bold font-amiri hover:gap-3 transition-all"
+          >
+            <span>جميع آداب الطريق</span>
+            <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+          </Link>
         </div>
       </div>
     </section>

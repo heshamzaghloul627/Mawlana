@@ -59,7 +59,9 @@ async function verifyAuth(req: functions.https.Request): Promise<AuthResult> {
 }
 
 function sendError(res: functions.Response, err: any) {
-  const code = typeof err.code === "number" ? err.code : 500;
+  const rawCode = typeof err.code === "number" ? err.code : 500;
+  // Ensure valid HTTP status code (100-599); gRPC codes (e.g. 7) are not valid
+  const code = rawCode >= 100 && rawCode < 600 ? rawCode : 500;
   const message = err.message || "Internal error";
   res.status(code).json({ error: { message, status: code } });
 }
@@ -115,21 +117,32 @@ async function generateAndUploadImage(
   const bucket = storage.bucket();
   const rawBuffer = Buffer.from(b64, "base64");
 
-  // Compress: resize to 1200px wide, convert to JPEG at 80% quality
-  const jpegBuffer = await sharp(rawBuffer)
-    .resize(1200, 675, { fit: "cover" })
-    .jpeg({ quality: 80 })
-    .toBuffer();
+  const basePath = storagePath.replace(/\.png$/, "");
+  const sharpInput = sharp(rawBuffer);
 
-  const jpegPath = storagePath.replace(/\.png$/, ".jpg");
-  const file = bucket.file(jpegPath);
+  // Generate all variants in parallel
+  const [webpFull, webpThumb, jpegFull] = await Promise.all([
+    // Full-size WebP (1200px, quality 75)
+    sharpInput.clone().resize(1200, 675, { fit: "cover" }).webp({ quality: 75 }).toBuffer(),
+    // Thumbnail WebP (600px, quality 65) for card grids
+    sharpInput.clone().resize(600, 338, { fit: "cover" }).webp({ quality: 65 }).toBuffer(),
+    // JPEG fallback (1200px, quality 80)
+    sharpInput.clone().resize(1200, 675, { fit: "cover" }).jpeg({ quality: 80 }).toBuffer(),
+  ]);
 
-  await file.save(jpegBuffer, {
-    contentType: "image/jpeg",
-    metadata: { cacheControl: "public, max-age=31536000" },
-  });
+  const webpPath = `${basePath}.webp`;
+  const thumbPath = `${basePath}_thumb.webp`;
+  const jpegPath = `${basePath}.jpg`;
+  const cacheControl = "public, max-age=31536000";
 
-  return `https://storage.googleapis.com/${bucket.name}/${jpegPath}`;
+  await Promise.all([
+    bucket.file(webpPath).save(webpFull, { contentType: "image/webp", metadata: { cacheControl } }),
+    bucket.file(thumbPath).save(webpThumb, { contentType: "image/webp", metadata: { cacheControl } }),
+    bucket.file(jpegPath).save(jpegFull, { contentType: "image/jpeg", metadata: { cacheControl } }),
+  ]);
+
+  const baseUrl = `https://storage.googleapis.com/${bucket.name}`;
+  return `${baseUrl}/${webpPath}`;
 }
 
 // ─── AI Functions ────────────────────────────────────────────
@@ -435,23 +448,29 @@ export const uploadcover = functions
       const raw = base64.replace(/^data:image\/\w+;base64,/, "");
       const rawBuffer = Buffer.from(raw, "base64");
 
-      // Compress to JPEG
-      const jpegBuffer = await sharp(rawBuffer)
-        .resize(1200, 675, { fit: "cover" })
-        .jpeg({ quality: 80 })
-        .toBuffer();
-
       const safeName = filename.replace(/\.[^.]+$/, "");
-      const storagePath = `covers/${safeName}-${Date.now()}.jpg`;
+      const ts = Date.now();
       const bucket = storage.bucket();
-      const file = bucket.file(storagePath);
+      const sharpInput = sharp(rawBuffer);
 
-      await file.save(jpegBuffer, {
-        contentType: "image/jpeg",
-        metadata: { cacheControl: "public, max-age=31536000" },
-      });
+      const [webpFull, webpThumb, jpegFull] = await Promise.all([
+        sharpInput.clone().resize(1200, 675, { fit: "cover" }).webp({ quality: 75 }).toBuffer(),
+        sharpInput.clone().resize(600, 338, { fit: "cover" }).webp({ quality: 65 }).toBuffer(),
+        sharpInput.clone().resize(1200, 675, { fit: "cover" }).jpeg({ quality: 80 }).toBuffer(),
+      ]);
 
-      const url = `https://storage.googleapis.com/${bucket.name}/${storagePath}`;
+      const webpPath = `covers/${safeName}-${ts}.webp`;
+      const thumbPath = `covers/${safeName}-${ts}_thumb.webp`;
+      const jpegPath = `covers/${safeName}-${ts}.jpg`;
+      const cacheControl = "public, max-age=31536000";
+
+      await Promise.all([
+        bucket.file(webpPath).save(webpFull, { contentType: "image/webp", metadata: { cacheControl } }),
+        bucket.file(thumbPath).save(webpThumb, { contentType: "image/webp", metadata: { cacheControl } }),
+        bucket.file(jpegPath).save(jpegFull, { contentType: "image/jpeg", metadata: { cacheControl } }),
+      ]);
+
+      const url = `https://storage.googleapis.com/${bucket.name}/${webpPath}`;
       res.json({ result: { url } });
     } catch (err: any) {
       sendError(res, err);
@@ -499,6 +518,7 @@ export const submitcomment = functions
 
       res.json({ result: { success: true } });
     } catch (err: any) {
+      console.error("submitcomment error:", err);
       sendError(res, err);
     }
   });

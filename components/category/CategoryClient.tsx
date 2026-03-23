@@ -11,6 +11,7 @@ import {
   CATEGORIES,
 } from "@/lib/firebase/articles";
 import type { Article, Category } from "@/types";
+import CoverImage from "@/components/ui/CoverImage";
 
 export default function CategoryClient() {
   const params = useParams<{ lang: string; category: string }>();
@@ -157,10 +158,11 @@ export default function CategoryClient() {
                     {/* Cover image */}
                     <div className="h-48 overflow-hidden relative">
                       {article.coverImage ? (
-                        <img
+                        <CoverImage
                           src={article.coverImage}
                           alt={title}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          thumbnail
                         />
                       ) : (
                         <div className="w-full h-full bg-gradient-to-br from-slate-100 dark:from-gray-800 to-primary/5 dark:to-accent-gold/5" />
